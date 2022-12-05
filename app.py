@@ -95,7 +95,6 @@ def pegardados():
                 except:
                     print('A imagem:', fpath, ' não é uma boa imagem')
         return success_count
-    
     detector = MTCNN()
     sdir=("pasta\\"+email_empresa+"\\"+ctps)
     working_dir=r'./'
@@ -104,24 +103,6 @@ def pegardados():
     width=128
     count=align_crop_resize(sdir,dest_dir)
     print ('Total de imagens processadas com sucesso: ', count)
-
-    def show_images(tdir):
-        filelist=os.listdir(tdir)
-        length=len(filelist)
-        columns=5
-        rows=int(np.ceil(length/columns))    
-        plt.figure(figsize=(20, rows * 4))
-        for i, f in enumerate(filelist):    
-            fpath=os.path.join(tdir, f)
-            imgpath=os.path.join(tdir,f)
-            img=plt.imread(imgpath)
-            plt.subplot(rows, columns, i+1)
-            plt.axis('off')
-            plt.title(f, color='blue', fontsize=12)
-            plt.imshow(img)
-
-    show_dir=os.path.join(dest_dir, email_empresa)
-    show_images(show_dir)
-    return "<p>Cadastro realizado com sucesso! </p>"
+    return "<p>Cadastro realizado com sucesso!</p>"
 if __name__ == "__main__":
       app.run(port=5000)
