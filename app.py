@@ -130,7 +130,7 @@ def send_form():
             plt.title(f, color='blue', fontsize=12)
             plt.imshow(img)
 
-    show_dir=os.path.join(dest_dir, 'Imagens')
+    show_dir=os.path.join(dest_dir, email_empresa)
     show_images(show_dir)
 if __name__ == "__main__":
       app.debug = True

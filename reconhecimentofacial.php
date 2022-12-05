@@ -186,7 +186,7 @@ if (!isset($_SESSION)) {
             const descriptions = []
             return Promise.all(labels.map(async id => {
             for (let i = 1; i <= 2; i++) {
-                const img = await faceapi.fetchImage(`./${id}/Imagens/${i}.png`)
+                const img = await faceapi.fetchImage(`./${id}/<?php echo $email_empresa; ?>/${i}.png`)
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 descriptions.push(detections.descriptor)
             }
