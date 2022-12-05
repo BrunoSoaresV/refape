@@ -9,22 +9,20 @@ if(!AJAX_REQUEST) {
 }
 require_once("conexao.php");
   if(isset($_GET['data'])){
-    $rosto = $_GET['data'];
+    $label = $_GET['data'];
   }
 if (isset($_SESSION['cnpj']) || isset($_SESSION['nome'])) {
   $email_empresa1 = $_SESSION['email'];
-if($rosto=="Rosto desconhecido" or $rosto=="")die("");
+if($label=="Rosto desconhecido" or $label=="")die("");
   date_default_timezone_set('America/Sao_Paulo');
   $horario_atual = date("Y-m-d H:i:s");
   $data_atual=date("Y-m-d");
   $dateOBJ = new DateTime();
   $minutos_anteriores=0;
-  isset($_SESSION["$label1"]) ? $minutos_anteriores=$_SESSION["$label1"] : $minutos_anteriores=0;
+  isset($_SESSION["$label"]) ? $minutos_anteriores=$_SESSION["$label"] : $minutos_anteriores=0;
   $minutos_atuais = $dateOBJ->getTimeStamp(); 
   if(($minutos_atuais-$minutos_anteriores)<=300)die("");
-  $_SESSION["$label1"]=$minutos_atuais;
-  $sql = "SELECT * FROM refape_web.ponto WHERE id='$label' ORDER BY id DESC LIMIT 1;";
-  $resultado=pg_query($conexao,$sql);
+  $_SESSION["$label"]=$minutos_atuais;
   $sql3 = "SELECT * FROM refape_web.funcionario WHERE id='$label';";
   $resultado3=pg_query($conexao,$sql3);
   if($linha3 = pg_fetch_assoc($resultado3)){
@@ -33,6 +31,8 @@ if($rosto=="Rosto desconhecido" or $rosto=="")die("");
     $email_empresa=$linha3['email_empresa'];
     $ctps=$linha3['ctps'];
   }
+  $sql = "SELECT * FROM refape_web.ponto WHERE ctps='$ctps' and email_empresa='$email_empresa1'ORDER BY id DESC LIMIT 1;";
+  $resultado=pg_query($conexao,$sql);
   if ($email_empresa1!=$email_empresa){
     die;
   }

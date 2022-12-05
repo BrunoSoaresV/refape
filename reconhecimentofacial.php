@@ -178,7 +178,7 @@ if (!isset($_SESSION)) {
         $sql3 = "SELECT * FROM refape_web.funcionario WHERE  email_empresa='$email_empresa' AND status='t' ;";
         $resultado3=pg_query($conexao,$sql3);
         while($linha3 = pg_fetch_assoc($resultado3)){
-        $id1=$linha3['id'];
+        $id1=strval($linha3['id']);
         $id[]= str_pad($id1, 16, 0, STR_PAD_LEFT);
   } ?>
   const labels=[<?php  foreach($id as $teste){
@@ -186,15 +186,15 @@ if (!isset($_SESSION)) {
         } ?>]
             const descriptions = []
             return Promise.all(labels.map(async label => {
+            const descriptions = []
             for (let i = 1; i <= 2; i++) {
                 const img = await faceapi.fetchImage(`./${label}/<?php echo $email_empresa; ?>/${i}.png`)
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 descriptions.push(detections.descriptor)
             }
-                return new faceapi.LabeledFaceDescriptors(id, descriptions)
-            }))
-        }
-    
+            return new faceapi.LabeledFaceDescriptors(label, descriptions)
+        }))
+    }
     camera.addEventListener('play', async () => {
         const canvas = faceapi.createCanvasFromMedia(camera)
         document.body.append(canvas)
@@ -215,7 +215,7 @@ if (!isset($_SESSION)) {
             faceapi.draw.drawDetections(canvas, a)
             results.forEach((result, index) => {
             const box = a[index].detection.box
-            const {label} = parseInt(result)
+            const {label} = result
             const drawBox = new faceapi.draw.DrawBox(box, {label})
             drawBox.draw(canvas)
             $.ajax({
