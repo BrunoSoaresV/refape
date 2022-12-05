@@ -104,7 +104,7 @@ def send_form():
         return success_count
     
     detector = MTCNN()
-    sdir=(r"C:\xampp\htdocs\refape/"+id)
+    sdir=(r"/home/site/wwwroot/"+id)
     working_dir=r'./'
     dest_dir=os.path.join(working_dir, 'results')
     height=128
