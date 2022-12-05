@@ -79,7 +79,7 @@ def send_form():
         # perform the actual rotation and return the image
         return cv2.warpAffine(image, M, (nW, nH)) 
     def align_crop_resize(sdir,dest_dir, height=None, width= None): 
-        cropped_dir=os.path.join(dest_dir, 'Imagens')
+        cropped_dir=os.path.join(dest_dir, email_empresa)
         if os.path.isdir(dest_dir):
             shutil.rmtree(dest_dir)
         os.mkdir(dest_dir)  #start with an empty destination directory
@@ -107,7 +107,7 @@ def send_form():
         return success_count
     
     detector = MTCNN()
-    sdir=(r"/home/site/wwwroot/"+email_empresa+"/"+ctps)
+    sdir=("pasta\\"+email_empresa+"\\"+ctps)
     working_dir=r'./'
     dest_dir=os.path.join(working_dir, id)
     height=128

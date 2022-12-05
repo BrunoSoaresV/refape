@@ -6,11 +6,10 @@ if(!isset($_SESSION)){
 require_once("conexao.php");
 $nome = $_POST['nome'];
 $email = $_POST['email'];
-$ctps1 = $_POST['ctps'];
+$ctps = $_POST['ctps'];
 $id = $_POST['id'];
 $status=$_POST['s'];
 $email_empresa = $_POST['email_empresa'];
-$ctps=str_pad($ctps1, 16, 0, STR_PAD_LEFT);
 $sql = "UPDATE refape_web.funcionario SET nome='$nome', status='$status', email='$email', ctps='$ctps', email_empresa='$email_empresa' WHERE id='$id';";
 $resultado=pg_query($conexao, $sql);
 if(!$resultado){
