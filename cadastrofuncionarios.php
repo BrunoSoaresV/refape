@@ -50,7 +50,7 @@ if(!isset($_SESSION)){
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="home" class="logo d-flex align-items-center w-auto">
+                <a href="home.php" class="logo d-flex align-items-center w-auto">
                   <span class="d-none d-lg-block">Cadastro de funcionários</span>
                 </a>
               </div><!-- End Logo -->
@@ -98,7 +98,7 @@ if(!isset($_SESSION)){
                     </div>
                     </div>
                     <div class="col-12">
-                    <a href="home"><input class="btn btn-primary w-100" type='button' value='Voltar'></a>
+                    <a href="home.php"><input class="btn btn-primary w-100" type='button' value='Voltar'></a>
                       <br><br>
                       <button class="btn btn-primary w-100" onclick="document.frmc2.submit();">Cadastrar</button>
                     </div>

@@ -13,8 +13,8 @@ if (!isset($_SESSION)) {
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script language="JavaScript" src="jquery-3.6.0.js"></script>
-<script language="JavaScript" src="face-api.min.js"></script>
+<script language="JavaScript" src="static/jquery-3.6.0.js"></script>
+<script language="JavaScript" src="static/face-api.min.js"></script>
 <link href="static/imagem1.png" rel="icon">
 <title>Registrar ponto</title>
 <style>
@@ -178,24 +178,22 @@ if (!isset($_SESSION)) {
         $sql3 = "SELECT * FROM refape_web.funcionario WHERE  email_empresa='$email_empresa' ;";
         $resultado3=pg_query($conexao,$sql3);
         while($linha3 = pg_fetch_assoc($resultado3)){
-        $id=$linha3['id'];
+        $id[]=$linha3['id'];
   } ?>
         const labels = [<?php  foreach($id as $teste){
-                    echo     "\"$id\"" . ','; 
+                    echo     "\"$teste\"" . ','; 
         } ?>]
-        return Promise.all(labels.map(async label => {
             const descriptions = []
+            return Promise.all(labels.map(async id => {
             for (let i = 1; i <= 2; i++) {
-                <?php foreach($id as $teste){
-                    echo  "const img = await faceapi.fetchImage(`./$id/Imagens/${label}/${i}.png`)";
-            } ?>
-                
+                const img = await faceapi.fetchImage(`./${id}/Imagens/${i}.png`)
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 descriptions.push(detections.descriptor)
             }
-            return new faceapi.LabeledFaceDescriptors(label, descriptions)
-        }))
-    }
+                return new faceapi.LabeledFaceDescriptors(id, descriptions)
+            }))
+        }
+    
     camera.addEventListener('play', async () => {
         const canvas = faceapi.createCanvasFromMedia(camera)
         document.body.append(canvas)

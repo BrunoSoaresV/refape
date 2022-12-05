@@ -77,7 +77,7 @@ if(!isset($_SESSION)){
                     <div class="col-12">
                       <button class="btn btn-primary w-100" onclick="document.frmldponto.submit();">Buscar</button>
                       <br> <br>
-                      <a href="verificarpontos"><input class="btn btn-primary w-100" type='button' value='Voltar'></a>
+                      <a href="verificarpontos.php"><input class="btn btn-primary w-100" type='button' value='Voltar'></a>
                     </div>
                   </form>
 
