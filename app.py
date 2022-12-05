@@ -122,5 +122,6 @@ def pegardados():
 
     show_dir=os.path.join(dest_dir, email_empresa)
     show_images(show_dir)
+    return "<p>Cadastro realizado com sucesso! </p>"
 if __name__ == "__main__":
       app.run(port=5000)
