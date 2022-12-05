@@ -7,7 +7,7 @@ require_once("conexao.php");
 $email_empresa=$_SESSION['email'];
 $sql3 = "SELECT * FROM refape_web.funcionario WHERE  email_empresa='$email_empresa' ;";
   $resultado3=pg_query($conexao,$sql3);
-  if($linha3 = pg_fetch_assoc($resultado3)){
+  while($linha3 = pg_fetch_assoc($resultado3)){
     $id=$linha3['id'];
   }
 ?>
