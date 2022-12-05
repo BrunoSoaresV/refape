@@ -95,8 +95,7 @@ $init = curl_init();
 curl_setopt($init, CURLOPT_URL, $acessar);
 curl_setopt ($init, CURLOPT_RETURNTRANSFER, 1);
 $conteudo = curl_exec ($init);
-curl_close ($init); 
-echo $conteudo; 
+curl_close ($init);  
 }
 pg_close($conexao);
 echo "<br/><br/>";

@@ -11,7 +11,7 @@ from flask import *
 from subprocess import call
 app = Flask(__name__)
 @app.route("/c2", methods=['GET', 'POST'])
-def send_form():
+def pegardados():
     default= 'none'
     id = request.args.get('id', default) 
     ctps = request.args.get('ctps', default) 
@@ -22,7 +22,6 @@ def send_form():
         if data !=[]:
             for faces in data:
                 box=faces['box']            
-                # calculate the area in the image
                 area = box[3]  * box[2]
                 if area>biggest:
                     biggest=area
@@ -42,13 +41,11 @@ def send_form():
         else:
             return (False, None)
     def crop_image(img): 
-        data=detector.detect_faces(img)
-        #y=box[1] h=box[3] x=box[0] w=box[2]   
+        data=detector.detect_faces(img)   
         biggest=0
         if data !=[]:
             for faces in data:
                 box=faces['box']            
-                # calculate the area in the image
                 area = box[3]  * box[2]
                 if area>biggest:
                     biggest=area
@@ -61,49 +58,42 @@ def send_form():
             return (False, None)
         
     def rotate_bound(image, angle):
-        #rotates an image by the degree angle
-        # grab the dimensions of the image and then determine the center
         (h, w) = image.shape[:2]
         (cX, cY) = (w // 2, h // 2)
-        # grab the rotation matrix (applying the angle to rotate clockwise), then grab the sine and cosine
-        # (i.e., the rotation components of the matrix)
         M = cv2.getRotationMatrix2D((cX, cY), angle, 1.0)
         cos = np.abs(M[0, 0])
         sin = np.abs(M[0, 1]) 
-        # compute the new bounding dimensions of the image
         nW = int((h * sin) + (w * cos))
         nH = int((h * cos) + (w * sin)) 
-        # adjust the rotation matrix to take into account translation
         M[0, 2] += (nW / 2) - cX
         M[1, 2] += (nH / 2) - cY 
-        # perform the actual rotation and return the image
         return cv2.warpAffine(image, M, (nW, nH)) 
     def align_crop_resize(sdir,dest_dir, height=None, width= None): 
         cropped_dir=os.path.join(dest_dir, email_empresa)
         if os.path.isdir(dest_dir):
             shutil.rmtree(dest_dir)
-        os.mkdir(dest_dir)  #start with an empty destination directory
+        os.mkdir(dest_dir)  
         os.mkdir(cropped_dir)
-        flist=os.listdir(sdir) #get a list of the image files    
+        flist=os.listdir(sdir)     
         success_count=0
-        for i,f in enumerate(flist): # iterate through the image files
+        for i,f in enumerate(flist): 
             fpath=os.path.join(sdir,f)        
             if os.path.isfile(fpath) and i <10:
                 try:
-                    img=cv2.imread(fpath) # read in the image
+                    img=cv2.imread(fpath) 
                     shape=img.shape
-                    status,img=align(img) # rotates the image for the eyes are horizontal
+                    status,img=align(img)
                     if status:             
-                        cstatus, img=crop_image(img) # crops the aligned image to return the largest face
+                        cstatus, img=crop_image(img) 
                         if cstatus:
                             if height != None and width !=None:
-                                img=cv2.resize(img, (height, width)) # if height annd width are specified resize the image
+                                img=cv2.resize(img, (height, width)) 
                             cropped_path=os.path.join(cropped_dir, f)
-                            cv2.imwrite(cropped_path, img) # save the image
-                            success_count +=1 # update the coount of successful processed images
+                            cv2.imwrite(cropped_path, img) 
+                            success_count +=1 
                     
                 except:
-                    print('file ', fpath, ' is a bad image file')
+                    print('A imagem:', fpath, ' não é uma boa imagem')
         return success_count
     
     detector = MTCNN()
@@ -113,7 +103,7 @@ def send_form():
     height=128
     width=128
     count=align_crop_resize(sdir,dest_dir)
-    print ('Number of sucessfully processed images= ', count)
+    print ('Total de imagens processadas com sucesso: ', count)
 
     def show_images(tdir):
         filelist=os.listdir(tdir)
