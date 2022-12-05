@@ -175,18 +175,19 @@ if (!isset($_SESSION)) {
         <?php 
         require_once("conexao.php");
         $email_empresa=$_SESSION['email'];
-        $sql3 = "SELECT * FROM refape_web.funcionario WHERE  email_empresa='$email_empresa' ;";
+        $sql3 = "SELECT * FROM refape_web.funcionario WHERE  email_empresa='$email_empresa' AND status='t' ;";
         $resultado3=pg_query($conexao,$sql3);
         while($linha3 = pg_fetch_assoc($resultado3)){
-        $id[]=$linha3['id'];
+        $id1[]=$linha3['id'];
+        $id = serialize($id1);
   } ?>
-        const labels = [<?php  foreach($id as $teste){
-                    echo     "\"$teste\"" . ','; 
+  const labels=[<?php  foreach($id as $teste){
+                    echo     "\"$teste\"" . ' ,'; 
         } ?>]
             const descriptions = []
-            return Promise.all(labels.map(async id => {
+            return Promise.all(labels.map(async label => {
             for (let i = 1; i <= 2; i++) {
-                const img = await faceapi.fetchImage(`./${id}/<?php echo $email_empresa; ?>/${i}.png`)
+                const img = await faceapi.fetchImage(`./${label}/<?php echo $email_empresa; ?>/${i}.png`)
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 descriptions.push(detections.descriptor)
             }

@@ -19,7 +19,6 @@ if($rosto=="Rosto desconhecido" or $rosto=="")die("");
   $data_atual=date("Y-m-d");
   $dateOBJ = new DateTime();
   $minutos_anteriores=0;
-  $label1 = serialize($rosto);
   isset($_SESSION["$label1"]) ? $minutos_anteriores=$_SESSION["$label1"] : $minutos_anteriores=0;
   $minutos_atuais = $dateOBJ->getTimeStamp(); 
   if(($minutos_atuais-$minutos_anteriores)<=300)die("");
