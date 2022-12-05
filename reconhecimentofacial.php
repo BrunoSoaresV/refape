@@ -15,7 +15,7 @@ if (!isset($_SESSION)) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script language="JavaScript" src="jquery-3.6.0.js"></script>
 <script language="JavaScript" src="face-api.min.js"></script>
-<link href="assets/img/imagem1.png" rel="icon">
+<link href="static/imagem1.png" rel="icon">
 <title>Registrar ponto</title>
 <style>
             @keyframes progress-content {
