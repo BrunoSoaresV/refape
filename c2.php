@@ -82,9 +82,10 @@ echo "Cadastro realizado com sucesso!";
 $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empresa='$email_empresa' ;";
   $resultado3=pg_query($conexao,$sql3);
   if($linha3 = pg_fetch_assoc($resultado3)){
-    $id=$linha3['id'];
+    $id1=$linha3['id'];
+    $id= str_pad($id1, 16, 0, STR_PAD_LEFT);
   }
-  $sql2="UPDATE refape_web.funcionario SET foto='$id/1.png', foto1='$id/2.png' WHERE id='$id'";
+  $sql2="UPDATE refape_web.funcionario SET foto='$id/$email_empresa/1.png', foto1='$id/$email_empresa/2.png' WHERE id='$id'";
   $resultado2=pg_query($conexao, $sql2);
   ?>
 <?php 

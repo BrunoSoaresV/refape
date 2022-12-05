@@ -23,7 +23,6 @@ if($rosto=="Rosto desconhecido" or $rosto=="")die("");
   $minutos_atuais = $dateOBJ->getTimeStamp(); 
   if(($minutos_atuais-$minutos_anteriores)<=300)die("");
   $_SESSION["$label1"]=$minutos_atuais;
-  $label=unserialize($label1);
   $sql = "SELECT * FROM refape_web.ponto WHERE id='$label' ORDER BY id DESC LIMIT 1;";
   $resultado=pg_query($conexao,$sql);
   $sql3 = "SELECT * FROM refape_web.funcionario WHERE id='$label';";

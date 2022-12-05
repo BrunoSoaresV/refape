@@ -178,8 +178,8 @@ if (!isset($_SESSION)) {
         $sql3 = "SELECT * FROM refape_web.funcionario WHERE  email_empresa='$email_empresa' AND status='t' ;";
         $resultado3=pg_query($conexao,$sql3);
         while($linha3 = pg_fetch_assoc($resultado3)){
-        $id1[]=$linha3['id'];
-        $id = serialize($id1);
+        $id1=$linha3['id'];
+        $id[]= str_pad($id1, 16, 0, STR_PAD_LEFT);
   } ?>
   const labels=[<?php  foreach($id as $teste){
                     echo     "\"$teste\"" . ' ,'; 
@@ -215,7 +215,7 @@ if (!isset($_SESSION)) {
             faceapi.draw.drawDetections(canvas, a)
             results.forEach((result, index) => {
             const box = a[index].detection.box
-            const {label} = result
+            const {label} = parseInt(result)
             const drawBox = new faceapi.draw.DrawBox(box, {label})
             drawBox.draw(canvas)
             $.ajax({
