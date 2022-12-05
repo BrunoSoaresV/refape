@@ -80,14 +80,14 @@ while ($linha = pg_fetch_assoc($resultado)) {
                   <form class="row g-3 needs-validation" novalidate method="POST" action="e1.php" name="edicao" enctype='multipart/form-data'>
                     <div class="col-12">
                       <label for="nome" class="form-label">Nome do funcionário</label>
-                      <input type="text" name="nome" class="form-control" value="<?php echo $nome ?>" placeholder="Informe o nome do funcionário" id="nome" required>
+                      <input type="text" name="nome" class="form-control" value="<?php echo $nome; ?>" placeholder="Informe o nome do funcionário" id="nome" required>
                       <div class="invalid-feedback">Por favor, coloque o nome do funcionário.</div>
                     </div>
 
                     <div class="col-12">
                       <label for="email" class="form-label">E-mail</label>
                       <div class="input-group has-validation">
-                        <input type="email" name="email" class="form-control" value="<?php echo $email ?>" placeholder="Informe o e-mail do funcionário" id="email" required>
+                        <input type="email" name="email" class="form-control" value="<?php echo $email; ?>" placeholder="Informe o e-mail do funcionário" id="email" required>
                         <div class="invalid-feedback">Por favor, coloque um e-mail válido!</div>
                       </div>
                     </div>
@@ -106,7 +106,7 @@ while ($linha = pg_fetch_assoc($resultado)) {
                     <div class="col-12">
                       <label for="email_empresa" class="form-label">E-mail da empresa</label>
                       <div class="input-group has-validation">
-                        <input type="email" name="email_empresa" value="<?php echo $email_empresa ?>" placeholder="Informe o e-mail da empresa" class="form-control" id="email_empresa" required>
+                        <input type="email" name="email_empresa" value="<?php echo $email_empresa; ?>" placeholder="Informe o e-mail da empresa" class="form-control" id="email_empresa" required>
                         <div class="invalid-feedback">Por favor, coloque o e-mail da empresa.</div>
                       </div>
                     </div>
