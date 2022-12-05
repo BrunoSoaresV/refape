@@ -3,6 +3,13 @@ include("protecao.php");
 if (!isset($_SESSION)) {
     session_start();
 }
+require_once("conexao.php");
+$email_empresa=$_SESSION['email'];
+$sql3 = "SELECT * FROM refape_web.funcionario WHERE  email_empresa='$email_empresa' ;";
+  $resultado3=pg_query($conexao,$sql3);
+  if($linha3 = pg_fetch_assoc($resultado3)){
+    $id=$linha3['id'];
+  }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -172,18 +179,11 @@ if (!isset($_SESSION)) {
     }
 
     const loadLabels = () => {
-        <?php
-        $empresa=($_SESSION["email"]);
-        $caminho = "./pasta/$empresa";
-        $x = array_diff(scandir($caminho), array('.', '..'));
-        ?>
-        const labels = [<?php foreach ($x as $labels) {
-                            echo   "\"$labels\"" . ',';
-                        }; ?>]
+        const labels = [<?php  echo   "\"$id\"" . ','; ?>]
         return Promise.all(labels.map(async label => {
             const descriptions = []
             for (let i = 1; i <= 2; i++) {
-                const img = await faceapi.fetchImage(`./pasta/<?php echo $empresa; ?>/${label}/${i}.png`)
+                const img = await faceapi.fetchImage(`./<?php echo $id; ?>/Imagens/${label}/${i}.png`)
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 descriptions.push(detections.descriptor)
             }

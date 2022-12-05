@@ -14,6 +14,8 @@ app = Flask(__name__)
 def send_form():
     default= 'none'
     id = request.args.get('id', default) 
+    ctps = request.args.get('ctps', default) 
+    email_empresa = request.args.get('email_empresa', default) 
     def align(img):
         data=detector.detect_faces(img)
         biggest=0
@@ -77,10 +79,11 @@ def send_form():
         # perform the actual rotation and return the image
         return cv2.warpAffine(image, M, (nW, nH)) 
     def align_crop_resize(sdir,dest_dir, height=None, width= None): 
-        cropped_dir=os.path.join(dest_dir, id)
+        cropped_dir=os.path.join(dest_dir, 'Imagens')
         if os.path.isdir(dest_dir):
             shutil.rmtree(dest_dir)
         os.mkdir(dest_dir)  #start with an empty destination directory
+        os.mkdir(cropped_dir)
         flist=os.listdir(sdir) #get a list of the image files    
         success_count=0
         for i,f in enumerate(flist): # iterate through the image files
@@ -104,9 +107,9 @@ def send_form():
         return success_count
     
     detector = MTCNN()
-    sdir=(r"/home/site/wwwroot/"+id)
+    sdir=(r"/home/site/wwwroot/"+email_empresa+"/"+ctps)
     working_dir=r'./'
-    dest_dir=os.path.join(working_dir, 'results')
+    dest_dir=os.path.join(working_dir, id)
     height=128
     width=128
     count=align_crop_resize(sdir,dest_dir)
@@ -127,7 +130,7 @@ def send_form():
             plt.title(f, color='blue', fontsize=12)
             plt.imshow(img)
 
-    show_dir=os.path.join(dest_dir, 'Cropped_Images')
+    show_dir=os.path.join(dest_dir, 'Imagens')
     show_images(show_dir)
 if __name__ == "__main__":
       app.debug = True

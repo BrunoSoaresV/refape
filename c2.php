@@ -85,7 +85,6 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
   if($linha3 = pg_fetch_assoc($resultado3)){
     $id=$linha3['id'];
   }
-  rename("pasta/$email_empresa/$ctps", $id);
   $sql2="UPDATE refape_web.funcionario SET foto='$id/1.png', foto1='$id/2.png' WHERE id='$id'";
   $resultado2=pg_query($conexao, $sql2);
   ?>
@@ -93,7 +92,7 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
 $command = escapeshellcmd('app.py');
 $output = shell_exec($command);
 echo $output;
-$info = file_get_contents("http://127.0.0.1:5000/c2?id=$id");
+$info = file_get_contents("http://127.0.0.1:5000/c2?id=$id&email_empresa=$email_empresa&ctps=$ctps");
 echo $info; 
 }
 pg_close($conexao);
