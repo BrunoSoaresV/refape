@@ -1,0 +1,69 @@
+-- Table: refape_web.empresa
+
+-- DROP TABLE IF EXISTS refape_web.empresa;
+
+CREATE TABLE IF NOT EXISTS refape_web.empresa
+(
+    nome character varying(250) COLLATE pg_catalog."default",
+    email character varying(256) COLLATE pg_catalog."default" NOT NULL,
+    cnpj character varying(18) COLLATE pg_catalog."default",
+    senha character varying(300) COLLATE pg_catalog."default",
+    CONSTRAINT empresa_pkey PRIMARY KEY (email)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS refape_web.empresa
+    OWNER to tcc;
+    
+    
+   -- Table: refape_web.funcionario
+
+-- DROP TABLE IF EXISTS refape_web.funcionario;
+
+CREATE TABLE IF NOT EXISTS refape_web.funcionario
+(
+    nome character varying(250) COLLATE pg_catalog."default",
+    email character varying(256) COLLATE pg_catalog."default",
+    ctps character varying(256) COLLATE pg_catalog."default",
+    email_empresa character varying(256) COLLATE pg_catalog."default",
+    foto character varying(500) COLLATE pg_catalog."default",
+    status boolean DEFAULT true,
+    id integer NOT NULL DEFAULT nextval('refape_web.funcionario_id_seq'::regclass),
+    foto1 character varying(500) COLLATE pg_catalog."default",
+    CONSTRAINT funcionario_pkey PRIMARY KEY (id),
+    CONSTRAINT email_empresa FOREIGN KEY (email_empresa)
+        REFERENCES refape_web.empresa (email) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS refape_web.funcionario
+    OWNER to tcc;
+    
+-- Table: refape_web.ponto
+
+-- DROP TABLE IF EXISTS refape_web.ponto;
+
+CREATE TABLE IF NOT EXISTS refape_web.ponto
+(
+    nome character varying(250) COLLATE pg_catalog."default",
+    email character varying(256) COLLATE pg_catalog."default",
+    ctps character varying(256) COLLATE pg_catalog."default",
+    email_empresa character varying(256) COLLATE pg_catalog."default",
+    hora_saida timestamp without time zone,
+    tempo_permanencia character varying(256) COLLATE pg_catalog."default",
+    hora timestamp without time zone,
+    id integer NOT NULL DEFAULT nextval('refape_web.ponto_id_seq'::regclass),
+    data date,
+    CONSTRAINT ponto_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS refape_web.ponto
+    OWNER to tcc;
+    
+    
