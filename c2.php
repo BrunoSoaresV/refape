@@ -93,7 +93,7 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
 $command = escapeshellcmd('app.py');
 $output = shell_exec($command);
 echo $output;
-$info = file_get_contents("http://127.0.0.1:5000/c2?id='$id'");
+$info = file_get_contents("http://127.0.0.1:5000/c2?id=$id");
 echo $info; 
 }
 pg_close($conexao);
