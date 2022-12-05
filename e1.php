@@ -16,21 +16,6 @@ if(!$resultado){
 echo "Ocorreu um erro na edição, tente novamente.";
 }else{
 echo "Edição realizada com sucesso!";
-if($status=="false"){
-    if(!file_exists('./desativados/'.$email_empresa)){
-        mkdir("./desativados/$email_empresa");
-         }
-    rename("pasta/$email_empresa/$ctps", "desativados/$email_empresa/$ctps");
-    $sql2="UPDATE refape_web.funcionario SET foto='desativados/$email_empresa/$ctps/1.png', foto1='desativados/$email_empresa/$ctps/2.png' WHERE id='$id'";
-    $resultado2=pg_query($conexao, $sql2);
-    }else if ($status=="true"){
-        if(!file_exists('./desativados/'.$email_empresa)){
-            mkdir("./desativados/$email_empresa");
-             }
-    rename("desativados/$email_empresa/$ctps", "pasta/$email_empresa/$ctps");
-    $sql1="UPDATE refape_web.funcionario SET foto='pasta/$email_empresa/$ctps/1.png', foto1='pasta/$email_empresa/$ctps/2.png' WHERE id='$id'";
-    $resultado1=pg_query($conexao, $sql1);
-}
 }
 pg_close($conexao);
 echo "<br/><br/>";
