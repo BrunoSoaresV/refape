@@ -78,6 +78,7 @@ $sql = "INSERT INTO refape_web.funcionario (nome, email, ctps, email_empresa) VA
     if(!$resultado){
     echo "Ocorreu um erro no cadastro, tente novamente.";
 }else{
+    echo "Cadastro realizado com sucesso!";
 $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empresa='$email_empresa' ;";
   $resultado3=pg_query($conexao,$sql3);
   if($linha3 = pg_fetch_assoc($resultado3)){
@@ -86,19 +87,6 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
   }
   $sql2="UPDATE refape_web.funcionario SET foto='$id/$email_empresa/1.png', foto1='$id/$email_empresa/2.png' WHERE id='$id'";
   $resultado2=pg_query($conexao, $sql2);
-  ?>
-<?php 
-// Para Windows: $command = escapeshellcmd('python app.py');
-// Para Linux: $command = escapeshellcmd('python3 app.py');
-$command = escapeshellcmd('python3 app.py');
-$output = shell_exec($command);
-$acessar = "http://169.254.130.5:5000/c2?id=$id&email_empresa=$email_empresa&ctps=$ctps"; 
-$init = curl_init();
-curl_setopt($init, CURLOPT_URL, $acessar);
-curl_setopt ($init, CURLOPT_RETURNTRANSFER, 1);
-$conteudo = curl_exec ($init);
-echo ($conteudo);
-curl_close ($init);  
 }
 pg_close($conexao);
 echo "<br/><br/>";

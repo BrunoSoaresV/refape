@@ -12,6 +12,7 @@ from flask import *
 from subprocess import call
 app = Flask(__name__)
 @app.route("/c2", methods=['GET', 'POST'])
+@app.route("/c2", methods=['GET', 'POST'])
 def pegardados():
     default= 'none'
     id = request.args.get('id', default) 
@@ -105,5 +106,92 @@ def pegardados():
     count=align_crop_resize(sdir,dest_dir)
     print ('Total de imagens processadas com sucesso: ', count)
     return "<p>Cadastro realizado com sucesso!</p>"
+@app.route('/')
+def index():
+  return render_template('index.html')
+@app.route('/cadastrofuncionarios.php')
+def cadastrofuncionarios():
+     out = sp.run(["php", "cadastrofuncionarios.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/login')
+def login():
+     out = sp.run(["php", "login.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/l1', methods=['GET', 'POST'])
+def l1():
+     out = sp.run(["php", "l1.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/c1', methods=['GET', 'POST'])
+def c1():
+     out = sp.run(["php", "c1.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/cadastro')
+def cadastro():
+     out = sp.run(["php", "cadastro.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/home.php')
+def home():
+     out = sp.run(["php", "home.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/c2.php', methods=['GET', 'POST'])
+def c2():
+     out = sp.run(["php", "c2.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/listagem.php', methods=['GET', 'POST'])
+def listagem():
+     out = sp.run(["php", "listagem.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/conexao.php')
+def conexao():
+     out = sp.run(["php", "conexao.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/desativado.php')
+def desativado():
+     out = sp.run(["php", "desativado.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/e1.php', methods=['GET', 'POST'])
+def e1():
+     out = sp.run(["php", "e1.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/dfuncionario.php', methods=['GET', 'POST'])
+def dfuncionario():
+     out = sp.run(["php", "dfuncionario.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/editar.php')
+def editar():
+     out = sp.run(["php", "editar.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/ffuncionario.php', methods=['GET', 'POST'])
+def ffuncionario():
+     out = sp.run(["php", "ffuncionario.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/ldponto.php', methods=['GET', 'POST'])
+def ldponto():
+     out = sp.run(["php", "ldponto.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/lfponto.php', methods=['GET', 'POST'])
+def lfponto():
+     out = sp.run(["php", "lfponto.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/ponto.php')
+def ponto():
+     out = sp.run(["php", "ponto.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/protecao.php')
+def protecao():
+     out = sp.run(["php", "protecao.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/reconhecimentofacial.php', methods=['GET', 'POST'])
+def reconhecimentofacial():
+     out = sp.run(["php", "reconhecimentofacial.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/sair.php')
+def sair():
+     out = sp.run(["php", "sair.php"], stdout=sp.PIPE)
+     return out.stdout
+@app.route('/verificarpontos.php')
+def verificarpontos():
+     out = sp.run(["php", "verificarpontos.php"], stdout=sp.PIPE)
+     return out.stdout
 if __name__ == "__main__":
-      app.run(host='0.0.0.0')
+     app.run(host='0.0.0.0',port="8000",debug=True)
