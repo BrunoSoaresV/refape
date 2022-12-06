@@ -88,7 +88,7 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
   $resultado2=pg_query($conexao, $sql2);
   ?>
 <?php 
-exec("python3 app.py");
+$command = escapeshellcmd('python3 app.py');
 $acessar = "http://127.0.0.1:5000/c2?id=$id&email_empresa=$email_empresa&ctps=$ctps"; 
 $init = curl_init();
 curl_setopt($init, CURLOPT_URL, $acessar);
