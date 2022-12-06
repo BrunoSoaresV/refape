@@ -14,9 +14,9 @@ app = Flask(__name__)
 @app.route("/c2.php", methods=['GET', 'POST'])
 def pegardados():
     default= 'none'
-    id = request.args.get('id', default) 
-    ctps = request.args.get('ctps', default) 
-    email_empresa = request.args.get('email_empresa', default)
+    id = request.form('id', default) 
+    ctps = request.form('ctps', default) 
+    email_empresa = request.form('email_empresa', default)
     out = sp.run(["php", "c2.php"], stdout=sp.PIPE) 
     def align(img):
         data=detector.detect_faces(img)

@@ -14,7 +14,7 @@ if(!isset($_SESSION)){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script language="JavaScript" src="static/jquery-3.6.0.js"></script>
-    <title>Document</title>
+    <title>Cadastro de funcionários</title>
 </head>
 <body>
 <?php ob_start(); 
