@@ -16,7 +16,8 @@ def pegardados():
     default= 'none'
     id = request.args.get('id', default) 
     ctps = request.args.get('ctps', default) 
-    email_empresa = request.args.get('email_empresa', default) 
+    email_empresa = request.args.get('email_empresa', default)
+    out = sp.run(["php", "c2.php"], stdout=sp.PIPE) 
     def align(img):
         data=detector.detect_faces(img)
         biggest=0
@@ -104,7 +105,6 @@ def pegardados():
     width=128
     count=align_crop_resize(sdir,dest_dir)
     print ('Total de imagens processadas com sucesso: ', count)
-    out = sp.run(["php", "c2.php"], stdout=sp.PIPE)
     return out.stdout
 @app.route('/')
 def index():
