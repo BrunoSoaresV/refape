@@ -28,7 +28,6 @@
 
   <!-- Template Main CSS File -->
   <link href="static/style1.css" rel="stylesheet">
-
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.2
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
