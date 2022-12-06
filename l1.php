@@ -8,7 +8,6 @@ $senha=pg_escape_string($_POST['senha']);
 //echo password_hash($senha,PASSWORD_DEFAULT);die();
 //$sql="SELECT * FROM refape_web.empresa WHERE email='$email' AND senha='".password_hash($senha,PASSWORD_DEFAULT)."'";
 $sql="SELECT * FROM refape_web.empresa WHERE email='$email'";
-
 $q=pg_query($conexao, $sql);
 //$quantidade=pg_num_rows($q);
 //if($quantidade==1){
