@@ -78,7 +78,6 @@ $sql = "INSERT INTO refape_web.funcionario (nome, email, ctps, email_empresa) VA
     if(!$resultado){
     echo "Ocorreu um erro no cadastro, tente novamente.";
 }else{
-echo "Cadastro realizado com sucesso!";
 $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empresa='$email_empresa' ;";
   $resultado3=pg_query($conexao,$sql3);
   if($linha3 = pg_fetch_assoc($resultado3)){
@@ -95,6 +94,7 @@ $init = curl_init();
 curl_setopt($init, CURLOPT_URL, $acessar);
 curl_setopt ($init, CURLOPT_RETURNTRANSFER, 1);
 $conteudo = curl_exec ($init);
+echo ($conteudo);
 curl_close ($init);  
 }
 pg_close($conexao);
