@@ -11,8 +11,7 @@ from matplotlib.pyplot import imshow
 from flask import *
 from subprocess import call
 app = Flask(__name__)
-@app.route("/c2", methods=['GET', 'POST'])
-@app.route("/c2", methods=['GET', 'POST'])
+@app.route("/c2.php", methods=['GET', 'POST'])
 def pegardados():
     default= 'none'
     id = request.args.get('id', default) 
@@ -105,7 +104,8 @@ def pegardados():
     width=128
     count=align_crop_resize(sdir,dest_dir)
     print ('Total de imagens processadas com sucesso: ', count)
-    return "<p>Cadastro realizado com sucesso!</p>"
+    out = sp.run(["php", "c2.php"], stdout=sp.PIPE)
+    return out.stdout
 @app.route('/')
 def index():
   return render_template('index.html')
@@ -132,10 +132,6 @@ def cadastro():
 @app.route('/home.php')
 def home():
      out = sp.run(["php", "home.php"], stdout=sp.PIPE)
-     return out.stdout
-@app.route('/c2.php', methods=['GET', 'POST'])
-def c2():
-     out = sp.run(["php", "c2.php"], stdout=sp.PIPE)
      return out.stdout
 @app.route('/listagem.php', methods=['GET', 'POST'])
 def listagem():
