@@ -92,7 +92,7 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
 // Para Linux: $command = escapeshellcmd('python3 app.py');
 $command = escapeshellcmd('python3 app.py');
 $output = shell_exec($command);
-$acessar = "http://127.0.0.1:5000/c2?id=$id&email_empresa=$email_empresa&ctps=$ctps"; 
+$acessar = "http://169.254.130.5:5000/c2?id=$id&email_empresa=$email_empresa&ctps=$ctps"; 
 $init = curl_init();
 curl_setopt($init, CURLOPT_URL, $acessar);
 curl_setopt ($init, CURLOPT_RETURNTRANSFER, 1);
