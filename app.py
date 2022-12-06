@@ -113,19 +113,19 @@ def index():
 def cadastrofuncionarios():
      out = sp.run(["php", "cadastrofuncionarios.php"], stdout=sp.PIPE)
      return out.stdout
-@app.route('/login')
+@app.route('/login.php')
 def login():
      out = sp.run(["php", "login.php"], stdout=sp.PIPE)
      return out.stdout
-@app.route('/l1', methods=['GET', 'POST'])
+@app.route('/l1.php', methods=['GET', 'POST'])
 def l1():
      out = sp.run(["php", "l1.php"], stdout=sp.PIPE)
      return out.stdout
-@app.route('/c1', methods=['GET', 'POST'])
+@app.route('/c1.php', methods=['GET', 'POST'])
 def c1():
      out = sp.run(["php", "c1.php"], stdout=sp.PIPE)
      return out.stdout
-@app.route('/cadastro')
+@app.route('/cadastro.php')
 def cadastro():
      out = sp.run(["php", "cadastro.php"], stdout=sp.PIPE)
      return out.stdout
