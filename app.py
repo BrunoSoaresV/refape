@@ -11,12 +11,15 @@ from matplotlib.pyplot import imshow
 from flask import *
 from subprocess import call
 app = Flask(__name__)
+@app.route('/')
+def index():
+  return render_template('index.html')
 @app.route("/c2.php", methods=['GET', 'POST'])
 def pegardados():
     default= 'none'
-    id = request.form('id', default) 
-    ctps = request.form('ctps', default) 
-    email_empresa = request.form('email_empresa', default)
+    id = request.form.get('id', default) 
+    ctps = request.form.get('ctps', default) 
+    email_empresa = request.form.get('email_empresa', default)
     out = sp.run(["php", "c2.php"], stdout=sp.PIPE) 
     def align(img):
         data=detector.detect_faces(img)
@@ -106,9 +109,6 @@ def pegardados():
     count=align_crop_resize(sdir,dest_dir)
     print ('Total de imagens processadas com sucesso: ', count)
     return out.stdout
-@app.route('/')
-def index():
-  return render_template('index.html')
 @app.route('/cadastrofuncionarios.php')
 def cadastrofuncionarios():
      out = sp.run(["php", "cadastrofuncionarios.php"], stdout=sp.PIPE)
