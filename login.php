@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -27,6 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="static/style1.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.2
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -60,7 +62,7 @@
                     <p class="text-center small">Entre com seu e-mail e senha para login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate method="POST" action="l1.php">
+                  <form class="row g-3 needs-validation" novalidate method="POST">
 
                     <div class="col-12">
                       <label for="email" class="form-label">E-mail</label>
@@ -135,5 +137,40 @@
   }
 }
 </script>
+<?php
+require_once("conexao.php");
+if(isset($_POST['email'])||isset($_POST['senha'])) {
+$email=pg_escape_string($_POST['email']);
+$senha=pg_escape_string($_POST['senha']);
+//echo password_hash($senha,PASSWORD_DEFAULT);die();
+//$sql="SELECT * FROM refape_web.empresa WHERE email='$email' AND senha='".password_hash($senha,PASSWORD_DEFAULT)."'";
+$sql="SELECT * FROM refape_web.empresa WHERE email='$email'";
+$q=pg_query($conexao, $sql);
+//$quantidade=pg_num_rows($q);
+//if($quantidade==1){
+if ( $linha = pg_fetch_assoc($q) ) {
+     $usuario = $linha['email'];
+     $cnpj = $linha['cnpj'];
+     $senhaDoBanco = $linha['senha'];
+     if(password_verify($senha,$senhaDoBanco)){
+         if (!isset($_SESSION)){
+            session_start();
+        }
+        $_SESSION['cnpj']=$linha['cnpj'];
+        $_SESSION['nome']=$linha['nome'];
+        $_SESSION['email'] = $linha['email'];
+        header("Location: home.php");
+     }else{
+	echo "<br/>";
+        echo "<div class='invalid-feedback'>E-mail ou senha errados. Tente novamente.</div>";
+     }
+}else{
+  echo "<div class='invalid-feedback'>E-mail ou senha errados. Por favor, tyyyyyente novamente.</div>";
+    echo "<br/><br/>";
+    echo "<input type='button' value='Voltar' onClick='javascript:history.back();'/>";
+}
+}
+?>
+
 </body>
 </html>
