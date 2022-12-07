@@ -62,7 +62,7 @@
                     <p class="text-center small">Entre com seu e-mail e senha para login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate method="POST">
+                  <form class="row g-3 needs-validation" novalidate method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
 
                     <div class="col-12">
                       <label for="email" class="form-label">E-mail</label>
