@@ -1,4 +1,41 @@
-
+<?php
+if(isset($_POST['dados'])){ 
+  $mensagem = "";
+  require_once("conexao.php");
+if(isset($_POST['email'])||isset($_POST['senha'])) {
+$email=pg_escape_string($_POST['email']);
+$senha=pg_escape_string($_POST['senha']);
+//echo password_hash($senha,PASSWORD_DEFAULT);die();
+//$sql="SELECT * FROM refape_web.empresa WHERE email='$email' AND senha='".password_hash($senha,PASSWORD_DEFAULT)."'";
+$sql="SELECT * FROM refape_web.empresa WHERE email='$email'";
+$q=pg_query($conexao, $sql);
+//$quantidade=pg_num_rows($q);
+//if($quantidade==1){
+if ( $linha = pg_fetch_assoc($q) ) {
+     $usuario = $linha['email'];
+     $cnpj = $linha['cnpj'];
+     $senhaDoBanco = $linha['senha'];
+     if(password_verify($senha,$senhaDoBanco)){
+         if (!isset($_SESSION)){
+            session_start();
+        }
+        $_SESSION['cnpj']=$linha['cnpj'];
+        $_SESSION['nome']=$linha['nome'];
+        $_SESSION['email'] = $linha['email'];
+        header("Location: home.php");
+     }else{
+        $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>E-mail ou senha errados. Tente novamente.
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+     }
+}else{
+    $mensagem=" <div class='alert alert-danger alert-dismissible fade show' role='alert'>E-mail ou senha errados. Por favor, tente novamente.
+    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+    </div>";
+}
+}
+}    
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -85,8 +122,9 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100"  onclick="document.frml1.submit();">Login</button>
-                    </div>
+                    <input type="submit"  class="btn btn-primary w-100" name="dados" value="Login">
+                   <?php if(isset($_POST['dados'])){ echo $mensagem; }?>
+                  </div>
                     <div class="col-12">
                       <p class="small mb-0">Não tem uma conta? <a href="cadastro.php">Criar uma conta</a></p>
                     </div>
@@ -137,40 +175,6 @@
   }
 }
 </script>
-<?php
-require_once("conexao.php");
-if(isset($_POST['email'])||isset($_POST['senha'])) {
-$email=pg_escape_string($_POST['email']);
-$senha=pg_escape_string($_POST['senha']);
-//echo password_hash($senha,PASSWORD_DEFAULT);die();
-//$sql="SELECT * FROM refape_web.empresa WHERE email='$email' AND senha='".password_hash($senha,PASSWORD_DEFAULT)."'";
-$sql="SELECT * FROM refape_web.empresa WHERE email='$email'";
-$q=pg_query($conexao, $sql);
-//$quantidade=pg_num_rows($q);
-//if($quantidade==1){
-if ( $linha = pg_fetch_assoc($q) ) {
-     $usuario = $linha['email'];
-     $cnpj = $linha['cnpj'];
-     $senhaDoBanco = $linha['senha'];
-     if(password_verify($senha,$senhaDoBanco)){
-         if (!isset($_SESSION)){
-            session_start();
-        }
-        $_SESSION['cnpj']=$linha['cnpj'];
-        $_SESSION['nome']=$linha['nome'];
-        $_SESSION['email'] = $linha['email'];
-        header("Location: home.php");
-     }else{
-	echo "<br/>";
-        echo "<div class='invalid-feedback'>E-mail ou senha errados. Tente novamente.</div>";
-     }
-}else{
-  echo "<div class='invalid-feedback'>E-mail ou senha errados. Por favor, tyyyyyente novamente.</div>";
-    echo "<br/><br/>";
-    echo "<input type='button' value='Voltar' onClick='javascript:history.back();'/>";
-}
-}
-?>
 
 </body>
 </html>
