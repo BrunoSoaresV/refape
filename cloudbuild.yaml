@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/refape/quickstart-image', '.' ]
+images:
+- 'gcr.io/refape/quickstart-image'
