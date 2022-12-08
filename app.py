@@ -93,7 +93,7 @@ def align_crop_resize(sdir,dest_dir, height=None, width= None):
                 print('A imagem:', fpath, ' não é uma boa imagem')
     return success_count
 detector = MTCNN()
-sdir=("pasta\\"+email_empresa+"\\"+ctps)
+sdir=("pasta/"+email_empresa+"/"+ctps)
 working_dir=r'./'
 dest_dir=os.path.join(working_dir, id)
 height=128
