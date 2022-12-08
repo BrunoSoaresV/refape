@@ -1,7 +1,7 @@
 FROM php:8.1
 RUN apt-get update
-RUN docker-php-ext-install mysqli
-RUN apt-get -y install libapache2-mod-php
+RUN docker-php-ext-install -j$(nproc) mysqli opcache
+ADD php.ini /usr/local/etc/php.ini
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
