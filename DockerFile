@@ -4,7 +4,7 @@ RUN docker-php-ext-install -j$(nproc) mysqli opcache
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
-RUN apt-get install -y python3.10-venv
+RUN apt-get install -y python3.10
 RUN apt-get install -y pip
 RUN pip install --upgrade pip
 RUN pip install Flask==2.2.2
@@ -13,7 +13,7 @@ RUN pip install matplotlib==3.6.2
 RUN pip install mtcnn==0.1.1
 RUN pip install numpy==1.23.5
 RUN pip install opencv-python
-RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+RUN pip install tensorflow --user
 RUN pip install opencv-python-headless==4.6.0.66
 RUN pip install Pillow==9.3.0
 RUN pip install tqdm==4.64.1
