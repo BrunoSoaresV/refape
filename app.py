@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import imshow
 from flask import *
 from subprocess import call
-app = Flask(__name__)
+app = Flask(__name__,  template_folder='templates')
 @app.route('/')
 def index():
   return render_template('index.html')
