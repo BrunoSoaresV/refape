@@ -1,8 +1,8 @@
 <?php
-isset($_POST['dados']);
+if(isset($_POST['dados'])){ 
   $mensagem = "";
   require_once("conexao.php");
-isset($_POST['email'])||isset($_POST['senha']); 
+if(isset($_POST['email'])||isset($_POST['senha'])) {
 $email=pg_escape_string($_POST['email']);
 $senha=pg_escape_string($_POST['senha']);
 //echo password_hash($senha,PASSWORD_DEFAULT);die();
@@ -33,7 +33,8 @@ if ( $linha = pg_fetch_assoc($q) ) {
     <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
     </div>";
 }
-    
+}
+}    
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -122,7 +123,7 @@ if ( $linha = pg_fetch_assoc($q) ) {
                     </div>
                     <div class="col-12">
                     <input type="submit"  class="btn btn-primary w-100" name="dados" value="Login">
-                   <?php isset($_POST['dados']); echo $mensagem; ?>
+                   <?php if(isset($_POST['dados'])){ echo $mensagem; }?>
                   </div>
                     <div class="col-12">
                       <p class="small mb-0">Não tem uma conta? <a href="cadastro.php">Criar uma conta</a></p>
