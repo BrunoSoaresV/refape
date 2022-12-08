@@ -1,4 +1,3 @@
-import tensorflow
 import subprocess as sp
 from mtcnn import MTCNN
 import cv2
