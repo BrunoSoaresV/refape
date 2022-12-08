@@ -1,4 +1,7 @@
 <?php
+if (!isset($_SESSION)){
+  session_start();
+}
 if(isset($_POST['dados'])){ 
   $mensagem = "";
   require_once("conexao.php");
@@ -16,9 +19,6 @@ if ( $linha = pg_fetch_assoc($q) ) {
      $cnpj = $linha['cnpj'];
      $senhaDoBanco = $linha['senha'];
      if(password_verify($senha,$senhaDoBanco)){
-         if (!isset($_SESSION)){
-            session_start();
-        }
         $_SESSION['cnpj']=$linha['cnpj'];
         $_SESSION['nome']=$linha['nome'];
         $_SESSION['email'] = $linha['email'];
