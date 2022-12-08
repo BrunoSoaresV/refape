@@ -1,6 +1,8 @@
 FROM php:8.1
-RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pgsql pdo_pgsql
+RUN apt-get update
+RUN apt-get install -y libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql
 FROM python:3.10
 RUN pip install --upgrade pip
 RUN pip install Flask==2.2.2
