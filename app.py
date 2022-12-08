@@ -11,9 +11,7 @@ from matplotlib.pyplot import imshow
 from flask import *
 from subprocess import call
 app = Flask(__name__)
-@app.route("/c2", methods=['GET', 'POST'])
 def pegardados():
-    out = sp.run(["php", "c2.php"], stdout=sp.PIPE) 
     default= 'none'
     id = request.args.get('id', default) 
     ctps = request.args.get('ctps', default) 
@@ -105,6 +103,4 @@ def pegardados():
     width=128
     count=align_crop_resize(sdir,dest_dir)
     print ('Total de imagens processadas com sucesso: ', count)
-    return out.stdout
-if __name__ == "__main__":
-      app.run(port=5000)
+   

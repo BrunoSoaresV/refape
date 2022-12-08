@@ -87,7 +87,18 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
   }
   $sql2="UPDATE refape_web.funcionario SET foto='$id/$email_empresa/1.png', foto1='$id/$email_empresa/2.png' WHERE id='$id'";
   $resultado2=pg_query($conexao, $sql2);
-  $comando=exec("python3 app.py");
+  ?>
+<script>
+    $.ajax({
+                 url: 'ponto.php',
+                 type: 'GET',
+                 data: {id: <?php echo $id;?>, email_empresa: <?php echo $email_empresa;?>, ctps: <?php echo $ctps;?>}
+                 }).done(function(resultado) {
+                    <?php
+                    $comando=exec("python3 app.py"); ?>
+                })
+</script>
+  <?php
 }
 pg_close($conexao);
 echo "<br/><br/>";
