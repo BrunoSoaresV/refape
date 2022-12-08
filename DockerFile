@@ -1,6 +1,7 @@
-FROM php:7.4
+FROM php:7.0
 RUN apt-get update
-RUN apt-get install php-pgsql
+RUN  apt-get -y install php7.0-pgsql
+RUN apt-get -y install libapache2-mod-php
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
