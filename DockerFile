@@ -17,6 +17,6 @@ RUN pip install opencv-python-headless==4.6.0.66
 RUN pip install Pillow==9.3.0
 RUN pip install tqdm==4.64.1
 WORKDIR /refape
-ADD ./refape
+ADD . /refape
 COPY app.py /app.py
 CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
