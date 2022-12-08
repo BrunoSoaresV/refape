@@ -87,7 +87,7 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
   }
   $sql2="UPDATE refape_web.funcionario SET foto='$id/$email_empresa/1.png', foto1='$id/$email_empresa/2.png' WHERE id='$id'";
   $resultado2=pg_query($conexao, $sql2);
-  $comando=exec("python3 app.py");
+  $comando=exec("python3 app.py $id $ctps $email_empresa");
 }
 pg_close($conexao);
 echo "<br/><br/>";
