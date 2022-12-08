@@ -56,7 +56,7 @@ if(!isset($_SESSION)){
 require_once("conexao.php");
 $email_empresa = $_SESSION['email'];
 $_SESSION['ctps'] = $_POST['ctps'];
-$ctps=str_pad($_SESSION['ctps'], 16, 0, STR_PAD_LEFT);
+$ctps=$_SESSION['ctps'];
 $sql = " SELECT * FROM refape_web.ponto WHERE ctps='$ctps' and email_empresa='$email_empresa'"; 
 $resultado=pg_query($conexao,$sql);
 echo "<h1>Pontos obtidos: </h1>";
