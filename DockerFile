@@ -2,4 +2,5 @@ FROM python:3.11
 RUN pip install -r requirements.txt
 RUN python3 -m pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 COPY app.py /app.py
+EXPOSE 8080
 CMD ["python","app.py"]
