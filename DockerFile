@@ -16,9 +16,7 @@ RUN pip install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_g
 RUN pip install opencv-python-headless==4.6.0.66
 RUN pip install Pillow==9.3.0
 RUN pip install tqdm==4.64.1
-ENV STATIC_URL /static
-ENV STATIC_PATH /static
-ENV TEMPLATES_URL /templates
-ENV TEMPLATES_PATH /templates
+WORKDIR /refape
+ADD ./refape
 COPY app.py /app.py
 CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
