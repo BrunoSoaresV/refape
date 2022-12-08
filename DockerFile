@@ -6,7 +6,7 @@ RUN pip install matplotlib==3.6.2
 RUN pip install mtcnn==0.1.1
 RUN pip install numpy==1.23.5
 RUN pip install opencv-python
-RUN pip install tensorflow
+RUN pip install tensorflow --user
 RUN pip install opencv-python-headless==4.6.0.66
 RUN pip install Pillow==9.3.0
 RUN pip install tqdm==4.64.1
