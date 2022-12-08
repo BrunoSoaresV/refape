@@ -12,7 +12,7 @@ import sys
 from subprocess import call
 id = sys.argv[1] 
 ctps =sys.argv[2] 
-email_empresa = sys.argv[2] 
+email_empresa = sys.argv[3] 
 def align(img):
     data=detector.detect_faces(img)
     biggest=0
