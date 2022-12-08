@@ -8,14 +8,12 @@ from tqdm import tqdm
 import shutil
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import imshow
-from flask import *
+import sys
 from subprocess import call
-app = Flask(__name__)
 def pegardados():
-    default= 'none'
-    id = request.args.get('id', default) 
-    ctps = request.args.get('ctps', default) 
-    email_empresa = request.args.get('email_empresa', default) 
+    id = sys.argv[1] 
+    ctps =sys.argv[2] 
+    email_empresa = sys.argv[2] 
     def align(img):
         data=detector.detect_faces(img)
         biggest=0
@@ -103,4 +101,4 @@ def pegardados():
     width=128
     count=align_crop_resize(sdir,dest_dir)
     print ('Total de imagens processadas com sucesso: ', count)
-   
+    
