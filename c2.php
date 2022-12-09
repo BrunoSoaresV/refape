@@ -101,7 +101,7 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
   }
   
   // EXEMPLO DE UTILIZACAO
-  deletar("/pasta/$email_empresa/$ctps");
+  deletar("pasta/$email_empresa/$ctps");
 }
 pg_close($conexao);
 echo "<br/><br/>";
