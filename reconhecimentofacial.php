@@ -157,10 +157,10 @@ if (!isset($_SESSION)) {
         }, 20000);
     const camera = document.getElementById("camera")
       Promise.all([
-        await faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
-        await faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
-        await faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
-        await faceapi.nets.ssdMobilenetv1.loadFromUri('./models')
+         faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
+         faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
+         faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
+         faceapi.nets.ssdMobilenetv1.loadFromUri('./models')
     ]).then(startVideo())
     function startVideo() {
         navigator.getUserMedia({
@@ -184,7 +184,6 @@ if (!isset($_SESSION)) {
   const labels=[<?php  foreach($id as $teste){
                     echo     "\"$teste\"" . ' ,'; 
         } ?>]
-            const descriptions = []
             return Promise.all(labels.map(async label => {
             const descriptions = []
             for (let i = 1; i <= 2; i++) {
