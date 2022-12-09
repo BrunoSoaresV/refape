@@ -3,6 +3,7 @@ include("protecao.php");
 if (!isset($_SESSION)) {
   session_start();
 }
+if(isset($_POST['dados'])){ 
 require_once("conexao.php");
 $nome = $_POST['nome'];
 $email = $_POST['email'];
@@ -30,7 +31,7 @@ while ($linha = pg_fetch_assoc($resultado)) {
   $email_empresa = $linha['email_empresa'];
   $ctps = $linha['ctps'];
 }
-pg_close($conexao);
+}
 ?>
 
 <!DOCTYPE html>
