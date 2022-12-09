@@ -1,3 +1,34 @@
+<?php
+if(isset($_POST['dados'])){ 
+  $mensagem = "";
+require_once("conexao.php");
+$nome = $_POST['nome'];
+$email = $_POST['email'];
+$cnpj = $_POST['cnpj'];
+$senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+$sql0 = "SELECT * FROM refape_web.empresa WHERE email='$email' ;";
+$resultado0=pg_query($conexao, $sql0);
+$linha = pg_fetch_assoc($resultado0);
+if ($linha > 0) {
+  $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Empresa já cadastrada.
+  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+  </div>";
+    } else {
+$sql = "INSERT INTO refape_web.empresa (nome, email, cnpj, senha) VALUES ( '$nome', '$email', '$cnpj', '$senha');";
+$resultado=pg_query($conexao, $sql);
+if(!$resultado){
+  $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Ocorreu um erro no cadastro, tente novamente.
+  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+  </div>";
+}else{
+  $mensagem= "<div class='alert alert-success alert-dismissible fade show' role='alert'>Cadastro realizado com sucesso!
+  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+  </div>";
+}
+pg_close($conexao);
+ }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -61,7 +92,7 @@
                     <p class="text-center small"> Insira seus dados para a criação da conta</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate method="POST" action="c1.php" name="cadastro">
+                  <form class="row g-3 needs-validation" novalidate method="POST"  action="<?php echo $_SERVER['PHP_SELF'];?>" name="cadastro">
                     <div class="col-12">
                       <label for="nome" class="form-label">Nome da empresa</label>
                       <input type="text" name="nome" class="form-control" placeholder="Informe o nome da sua empresa" id="nome" required>
@@ -91,7 +122,9 @@
                     </div>
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" onclick="document.frmc1.submit();">Criar conta</button>
+                    <input type="submit"  class="btn btn-primary w-100" name="dados" value="Cadastrar">
+                    <br><br>
+                    <?php if(isset($_POST['dados'])){ echo $mensagem; }?>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Já possui uma conta? <a href="login.php">Login</a></p>

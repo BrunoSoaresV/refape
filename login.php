@@ -123,6 +123,7 @@ if ( $linha = pg_fetch_assoc($q) ) {
                     </div>
                     <div class="col-12">
                     <input type="submit"  class="btn btn-primary w-100" name="dados" value="Login">
+                    <br><br>
                    <?php if(isset($_POST['dados'])){ echo $mensagem; }?>
                   </div>
                     <div class="col-12">

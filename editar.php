@@ -4,6 +4,23 @@ if (!isset($_SESSION)) {
   session_start();
 }
 require_once("conexao.php");
+$nome = $_POST['nome'];
+$email = $_POST['email'];
+$ctps = $_POST['ctps'];
+$id = $_POST['id'];
+$status=$_POST['s'];
+$email_empresa = $_POST['email_empresa'];
+$sql = "UPDATE refape_web.funcionario SET nome='$nome', status='$status', email='$email', ctps='$ctps', email_empresa='$email_empresa' WHERE id='$id';";
+$resultado=pg_query($conexao, $sql);
+if(!$resultado){
+  $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Ocorreu um erro na edição, tente novamente.
+  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+  </div>";
+}else{
+  $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Edição realizada com sucesso!
+  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+  </div>";
+}
 $id = $_GET['id'];
 $sql = "SELECT * FROM refape_web.funcionario WHERE id='$id'";
 $resultado = pg_query($conexao, $sql);
@@ -13,6 +30,7 @@ while ($linha = pg_fetch_assoc($resultado)) {
   $email_empresa = $linha['email_empresa'];
   $ctps = $linha['ctps'];
 }
+pg_close($conexao);
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +95,7 @@ while ($linha = pg_fetch_assoc($resultado)) {
                     <p class="text-center small"> Insira os dados do funcionário</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate method="POST" action="e1.php" name="edicao" enctype='multipart/form-data'>
+                  <form class="row g-3 needs-validation" novalidate method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>" name="edicao" enctype='multipart/form-data'>
                     <div class="col-12">
                       <label for="nome" class="form-label">Nome do funcionário</label>
                       <input type="text" name="nome" class="form-control" value="<?php echo $nome; ?>" placeholder="Informe o nome do funcionário" id="nome" required>
@@ -137,7 +155,9 @@ while ($linha = pg_fetch_assoc($resultado)) {
                     <div class="col-12">
                       <a href="home.php"><input class="btn btn-primary w-100" type='button' value='Voltar'></a>
                       <br><br>
-                      <button class="btn btn-primary w-100" onclick="document.frme1.submit();">Editar</button>
+                      <input type="submit"  class="btn btn-primary w-100" name="dados" value="Editar">
+                      <br><br>
+                      <?php if(isset($_POST['dados'])){ echo $mensagem; }?>
                     </div>
                   </form>
 
