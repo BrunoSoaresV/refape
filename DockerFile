@@ -20,4 +20,4 @@ RUN pip install tqdm==4.64.1
 WORKDIR /refape
 ADD . /refape
 EXPOSE 8080
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "/refape", "/refape/index.html"]
+CMD ["php", "-S", "0.0.0.0:8080", "index.html"]
