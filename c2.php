@@ -88,15 +88,20 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
   $sql2="UPDATE refape_web.funcionario SET foto='$id/$email_empresa/1.png', foto1='$id/$email_empresa/2.png' WHERE id='$id'";
   $resultado2=pg_query($conexao, $sql2);
   $comando=exec("python3 app.py $id $ctps $email_empresa");
-  function delTree($dir) { 
-    opendir($dir);
-    $files = array_diff(scandir($dir), array('.','..')); 
-    foreach ($files as $file) { 
-      (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file"); 
+  function deletar($apagar){ 
+
+    $iterator     = new RecursiveDirectoryIterator($apagar,FilesystemIterator::SKIP_DOTS);
+    $rec_iterator = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST);
+  
+    foreach($rec_iterator as $file){ 
+      $file->isFile() ? unlink($file->getPathname()) : rmdir($file->getPathname()); 
     } 
-    return rmdir($dir); 
+  
+    rmdir($apagar); 
   }
-  delTree("/pasta/$email_empresa/$ctps");
+  
+  // EXEMPLO DE UTILIZACAO
+  deletar("/pasta/$email_empresa/$ctps");
 }
 pg_close($conexao);
 echo "<br/><br/>";
