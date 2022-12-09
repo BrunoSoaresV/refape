@@ -76,7 +76,7 @@
     }
     echo "</tbody></table>";
     pg_close($conexao);
-    echo "<a class='btn btn-secondary'href='listagem'><input class='btn btn-secondary' type='button' value='Voltar'></a>";
+    echo "<a class='btn btn-secondary'href='listagem.php'><input class='btn btn-secondary' type='button' value='Voltar'></a>";
   }
   ?>
 

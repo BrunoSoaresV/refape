@@ -3,8 +3,17 @@ include("protecao.php");
 if (!isset($_SESSION)) {
   session_start();
 }
-if(isset($_POST['dados'])){ 
 require_once("conexao.php");
+$id = $_GET['id'];
+$sql = "SELECT * FROM refape_web.funcionario WHERE id='$id'";
+$resultado = pg_query($conexao, $sql);
+while ($linha = pg_fetch_assoc($resultado)) {
+  $nome = $linha['nome'];
+  $email = $linha['email'];
+  $email_empresa = $linha['email_empresa'];
+  $ctps = $linha['ctps'];
+}
+if(isset($_POST['dados'])){ 
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 $ctps = $_POST['ctps'];
@@ -18,18 +27,9 @@ if(!$resultado){
   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
   </div>";
 }else{
-  $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Edição realizada com sucesso!
+  $mensagem= "<div class='alert alert-success alert-dismissible fade show' role='alert'>Edição realizada com sucesso!
   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
   </div>";
-}
-$id = $_GET['id'];
-$sql = "SELECT * FROM refape_web.funcionario WHERE id='$id'";
-$resultado = pg_query($conexao, $sql);
-while ($linha = pg_fetch_assoc($resultado)) {
-  $nome = $linha['nome'];
-  $email = $linha['email'];
-  $email_empresa = $linha['email_empresa'];
-  $ctps = $linha['ctps'];
 }
 }
 ?>
@@ -96,7 +96,7 @@ while ($linha = pg_fetch_assoc($resultado)) {
                     <p class="text-center small"> Insira os dados do funcionário</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>" name="edicao" enctype='multipart/form-data'>
+                  <form class="row g-3 needs-validation" novalidate method="POST" action="<?php echo "editar.php?id=$id";?>" name="edicao" enctype='multipart/form-data'>
                     <div class="col-12">
                       <label for="nome" class="form-label">Nome do funcionário</label>
                       <input type="text" name="nome" class="form-control" value="<?php echo $nome; ?>" placeholder="Informe o nome do funcionário" id="nome" required>
