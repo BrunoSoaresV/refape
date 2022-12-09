@@ -9,8 +9,9 @@ if(!AJAX_REQUEST) {
 }
 require_once("conexao.php");
   if(isset($_GET['data'])){
-    $label = $_GET['data'];
+    $label1 = $_GET['data'];
   }
+  $label=ltrim($label1, "0"); 
 if (isset($_SESSION['cnpj']) || isset($_SESSION['nome'])) {
   $email_empresa1 = $_SESSION['email'];
 if($label=="Rosto desconhecido" or $label=="")die("");

@@ -215,8 +215,7 @@ if (!isset($_SESSION)) {
             results.forEach((result, index) => {
             const box = a[index].detection.box
             const {label} = result
-            label1=strtoint(label)
-            const drawBox = new faceapi.draw.DrawBox(box, {label1})
+            const drawBox = new faceapi.draw.DrawBox(box, {label})
             drawBox.draw(canvas)
             $.ajax({
                  url: 'ponto.php',
