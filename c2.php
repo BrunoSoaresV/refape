@@ -89,6 +89,7 @@ $sql3 = "SELECT * FROM refape_web.funcionario WHERE ctps='$ctps'and email_empres
   $resultado2=pg_query($conexao, $sql2);
   $comando=exec("python3 app.py $id $ctps $email_empresa");
   function delTree($dir) { 
+    opendir($dir);
     $files = array_diff(scandir($dir), array('.','..')); 
     foreach ($files as $file) { 
       (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file"); 
