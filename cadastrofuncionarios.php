@@ -74,7 +74,7 @@ if(isset($_POST['dados'])){
         $id1=$linha3['id'];
         $id= str_pad($id1, 16, 0, STR_PAD_LEFT);
       }
-      $sql2="UPDATE refape_web.funcionario SET foto='$id/$email_empresa/1.png', foto1='$id/$email_empresa/2.png' WHERE id='$id'";
+      $sql2="UPDATE refape_web.funcionario SET foto='$id/$email_empresa/1.png', foto1='$id/$email_empresa/2.png' WHERE id='$id1'";
       $resultado2=pg_query($conexao, $sql2);
       //No linux
       $executar=exec("python3 app.py $id $ctps $email_empresa");
