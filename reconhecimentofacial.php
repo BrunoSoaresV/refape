@@ -156,7 +156,13 @@ if (!isset($_SESSION)) {
         $('#dados').remove();
         }, 20000);
     const camera = document.getElementById("camera")
-    function startVideo() {
+    Promise.all([
+         faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
+         faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
+         faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
+         faceapi.nets.ssdMobilenetv1.loadFromUri('./models')
+    ]).then(startVideo())
+    async function startVideo() {
         navigator.getUserMedia({
                 video: {}
             },
@@ -187,12 +193,7 @@ if (!isset($_SESSION)) {
             return new faceapi.LabeledFaceDescriptors(label, descriptions)
         }))
     }
-      Promise.all([
-         faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
-         faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
-         faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
-         faceapi.nets.ssdMobilenetv1.loadFromUri('./models')
-    ]).then(startVideo())
+     
     camera.addEventListener('play', async () => {
     const canvas = faceapi.createCanvasFromMedia(camera)
     document.body.append(canvas)
