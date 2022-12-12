@@ -156,12 +156,6 @@ if (!isset($_SESSION)) {
         $('#dados').remove();
         }, 20000);
     const camera = document.getElementById("camera")
-      Promise.all([
-         faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
-         faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
-         faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
-         faceapi.nets.ssdMobilenetv1.loadFromUri('./models')
-    ]).then(startVideo())
     function startVideo() {
         navigator.getUserMedia({
                 video: {}
@@ -170,7 +164,6 @@ if (!isset($_SESSION)) {
             erro => console.error(erro)
         )
     }
-
     const loadLabels = () => {
         <?php 
         require_once("conexao.php");
@@ -194,15 +187,21 @@ if (!isset($_SESSION)) {
             return new faceapi.LabeledFaceDescriptors(label, descriptions)
         }))
     }
+      Promise.all([
+         faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
+         faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
+         faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
+         faceapi.nets.ssdMobilenetv1.loadFromUri('./models')
+    ]).then(startVideo())
     camera.addEventListener('play', async () => {
-        const canvas = faceapi.createCanvasFromMedia(camera)
-        document.body.append(canvas)
-        camera.width = 450
-        camera.height = 450
-        const tamanho = {
-            width: camera.width,
-            height: camera.height
-        }
+    const canvas = faceapi.createCanvasFromMedia(camera)
+    document.body.append(canvas)
+    camera.width = 450
+    camera.height = 450
+    const tamanho = {
+        width: camera.width,
+        height: camera.height
+    }
         const labels = await loadLabels()
         faceapi.matchDimensions(canvas, tamanho)
         setInterval(async () => {
