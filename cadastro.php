@@ -21,7 +21,7 @@ if(!$resultado){
   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
   </div>";
 }else{
-  $mensagem= "<div class='alert alert-success alert-dismissible fade show' role='alert'>Cadastro realizado com sucesso!
+  $mensagem= "<div class='alert alert-success alert-dismissible fade show' role='alert'>Cadastro realizado com sucesso! Agora clique no link para realizar login: <a href='login.php'>Login</a>
   <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
   </div>";
 }
