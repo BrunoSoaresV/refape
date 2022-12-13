@@ -6,8 +6,8 @@ if(isset($_POST['dados'])){
   $mensagem = "";
   require_once("conexao.php");
 if(isset($_POST['email'])||isset($_POST['senha'])) {
-$email=pg_escape_string($_POST['email']);
-$senha=pg_escape_string($_POST['senha']);
+$email=$_POST['email'];
+$senha=$_POST['senha'];
 //echo password_hash($senha,PASSWORD_DEFAULT);die();
 //$sql="SELECT * FROM refape_web.empresa WHERE email='$email' AND senha='".password_hash($senha,PASSWORD_DEFAULT)."'";
 $sql="SELECT * FROM refape_web.empresa WHERE email='$email'";
