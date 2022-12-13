@@ -1,8 +1,7 @@
 FROM php:8.1
-RUN mkdir ini
-RUN cd ini
-RUN echo "upload_max_filesize=20000M"  >> extensions.ini 
-RUN echo "post_max_size=20000M"  >> extensions.ini
+RUN touch /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "upload_max_filesize = 20000M;" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size = 20000M;" >> /usr/local/etc/php/conf.d/uploads.ini
 RUN apt-get update
 RUN docker-php-ext-install -j$(nproc) mysqli opcache
 RUN apt-get install -y libpq-dev \
