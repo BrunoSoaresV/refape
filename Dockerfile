@@ -18,4 +18,6 @@ RUN pip install tqdm==4.64.1
 WORKDIR /refape
 ADD . /refape
 EXPOSE 8080
+RUN echo "upload_max_filesize=20000M"  >> extensions.ini 
+RUN echo "post_max_size=20000M"  >> extensions.ini
 CMD ["php", "-S", "0.0.0.0:8080"]
