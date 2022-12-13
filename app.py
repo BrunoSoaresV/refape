@@ -43,7 +43,7 @@ def crop_image(img):
     if data !=[]:
         for faces in data:
             box=faces['box']            
-            area = box[3]  * box[2]
+            area = box[4]  * box[4]
             if area>biggest:
                 biggest=area
                 bbox=box 
