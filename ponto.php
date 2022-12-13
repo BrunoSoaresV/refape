@@ -20,10 +20,10 @@ if($label=="Rosto desconhecido" or $label=="")die("");
   $data_atual=date("Y-m-d");
   $dateOBJ = new DateTime();
   $minutos_anteriores=0;
-  isset($_SESSION["$label"]) ? $minutos_anteriores=$_SESSION["$label"] : $minutos_anteriores=0;
+  isset($_SESSION["$label1"]) ? $minutos_anteriores=$_SESSION["$label1"] : $minutos_anteriores=0;
   $minutos_atuais = $dateOBJ->getTimeStamp(); 
   if(($minutos_atuais-$minutos_anteriores)<=300)die("");
-  $_SESSION["$label"]=$minutos_atuais;
+  $_SESSION["$label1"]=$minutos_atuais;
   $sql3 = "SELECT * FROM refape_web.funcionario WHERE id='$label';";
   $resultado3=pg_query($conexao,$sql3);
   if($linha3 = pg_fetch_assoc($resultado3)){
