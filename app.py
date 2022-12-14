@@ -19,7 +19,7 @@ def align(img):
     if data !=[]:
         for faces in data:
             box=faces['box']            
-            area = box[4]  * box[4]
+            area = box[3]  * box[2]
             if area>biggest:
                 biggest=area
                 bbox=box                
@@ -43,13 +43,13 @@ def crop_image(img):
     if data !=[]:
         for faces in data:
             box=faces['box']            
-            area = box[4]  * box[4]
+            area = box[3]  * box[2]
             if area>biggest:
                 biggest=area
                 bbox=box 
         bbox[0]= 0 if bbox[0]<0 else bbox[0]
         bbox[1]= 0 if bbox[1]<0 else bbox[1]
-        img=img[bbox[1]: bbox[1]+bbox[3],bbox[0]: bbox[0]+ bbox[2]]        
+        img=img[bbox[1]-20 : bbox[1]+bbox[3]+20, bbox[0] -20: bbox[0]+bbox[2]+20]     
         return (True, img) 
     else:
         return (False, None)
