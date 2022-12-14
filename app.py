@@ -49,7 +49,7 @@ def crop_image(img):
                 bbox=box 
         bbox[0]= 0 if bbox[0]<0 else bbox[0]
         bbox[1]= 0 if bbox[1]<0 else bbox[1]
-        img=img[bbox[1]-300 : bbox[1]+bbox[3]+300, bbox[0] -300: bbox[0]+bbox[2]+300]     
+        img=img[bbox[1]-100 : bbox[1]+bbox[3]+100, bbox[0] -100: bbox[0]+bbox[2]+100]     
         return (True, img) 
     else:
         return (False, None)
