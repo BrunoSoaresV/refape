@@ -154,7 +154,7 @@ if(!$resultado){
                     <div class="invalid-feedback">Por favor, coloque o status do funcionário.</div>
                     </div>
                     <div class="col-12">
-                      <a href="home.php"><input class="btn btn-primary w-100" type='button' value='Voltar'></a>
+                      <a href="listagem.php"><input class="btn btn-primary w-100" type='button' value='Voltar'></a>
                       <br><br>
                       <input type="submit"  class="btn btn-primary w-100" name="dados" value="Editar">
                       <br><br>
