@@ -157,10 +157,10 @@ if (!isset($_SESSION)) {
         }, 20000);
     const camera = document.getElementById("camera")
     Promise.all([
-         faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
-         faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
-         faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
-         faceapi.nets.ssdMobilenetv1.loadFromUri('./models')
+         faceapi.nets.tinyFaceDetector.loadFromUri(this.'./models'),
+         faceapi.nets.faceRecognitionNet.loadFromUri(this.'./models'),
+         faceapi.nets.faceLandmark68Net.loadFromUri(this.'./models'),
+         faceapi.nets.ssdMobilenetv1.loadFromUri(this.'./models')
     ]).then(startVideo())
     async function startVideo() {
         navigator.getUserMedia({
