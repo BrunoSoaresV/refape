@@ -234,7 +234,7 @@ if (!isset($_SESSION)) {
                     }
                 })
                     inserir.innerHTML = resultado
-                    },10000)
+                    },999999)
                   }else{
                     $(document).ready(function() {
                     switch($('#id').attr('class')){
