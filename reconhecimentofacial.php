@@ -162,9 +162,9 @@ if (!isset($_SESSION)) {
          faceapi.nets.faceRecognitionNet.loadFromUri(this.models),
          faceapi.nets.faceLandmark68Net.loadFromUri(this.models),
          faceapi.nets.ssdMobilenetv1.loadFromUri(this.models)
-    ]).then(startVideo()).catch(function(err) {
+    ]).catch(function(err) {
     console.log('Ocorreu algum erro de conexão, recarregue a página e tente novamente.', err)
-    })
+    }).then(startVideo())
     async function startVideo() {
         navigator.getUserMedia({
                 video: {}
@@ -211,7 +211,7 @@ if (!isset($_SESSION)) {
         setInterval(async () => {
             const d = await faceapi.detectAllFaces(camera, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
             const a = faceapi.resizeResults(d, tamanho)
-            const faceMatcher = new faceapi.FaceMatcher(labels, 0.45)
+            const faceMatcher = new faceapi.FaceMatcher(labels, 0.43)
             const results = a.map(d => faceMatcher.findBestMatch(d.descriptor))
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
             faceapi.draw.drawDetections(canvas, a)
