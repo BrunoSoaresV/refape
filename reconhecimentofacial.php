@@ -226,6 +226,13 @@ if (!isset($_SESSION)) {
                  var inserir = document.getElementById("id")
                   if(resultado==""){
                     setTimeout(function() {
+                        $(document).ready(function() {
+                    switch($('#id').attr('class')){
+                        case "alert alert-success": 
+                            $("#id").toggleClass("alert-success alert-light ")
+                            break
+                    }
+                })
                     inserir.innerHTML = resultado
                     },30000)
                   }else{
