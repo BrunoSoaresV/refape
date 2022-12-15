@@ -162,7 +162,9 @@ if (!isset($_SESSION)) {
          faceapi.nets.faceRecognitionNet.loadFromUri(this.models),
          faceapi.nets.faceLandmark68Net.loadFromUri(this.models),
          faceapi.nets.ssdMobilenetv1.loadFromUri(this.models)
-    ]).then(startVideo())
+    ]).then(startVideo()).catch(function(err) {
+    console.log('Ocorreu algum erro de conexão, recarregue a página e tente novamente.', err)
+    })
     async function startVideo() {
         navigator.getUserMedia({
                 video: {}
