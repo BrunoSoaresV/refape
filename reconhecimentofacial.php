@@ -227,7 +227,7 @@ if (!isset($_SESSION)) {
                   if(resultado==""){
                     setTimeout(function() {
                     inserir.innerHTML = resultado
-                    },999999)
+                    },30000)
                   }else{
                     $(document).ready(function() {
                     switch($('#id').attr('class')){
