@@ -208,7 +208,7 @@ if (!isset($_SESSION)) {
         setInterval(async () => {
             const d = await faceapi.detectAllFaces(camera, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
             const a = faceapi.resizeResults(d, tamanho)
-            const faceMatcher = new faceapi.FaceMatcher(labels, 0.43)
+            const faceMatcher = new faceapi.FaceMatcher(labels, 0.45)
             const results = a.map(d => faceMatcher.findBestMatch(d.descriptor))
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
             faceapi.draw.drawDetections(canvas, a)
