@@ -144,7 +144,7 @@ if (!isset($_SESSION)) {
     <div id="id" class="alert alert-light" role="alert">
     </div>
     <div id="dados" class="alert alert-warning" role="alert">
-    Aguarde... Isso pode levar alguns minutos.
+    Aguarde... Isso pode levar alguns minutos. Se o vídeo permanecer travado, recarregue a página. 
     </div>
     </div>
         <div class="desaparecer">Aguarde enquanto preparamos seus dados...
