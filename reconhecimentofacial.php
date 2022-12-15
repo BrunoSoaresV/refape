@@ -156,11 +156,12 @@ if (!isset($_SESSION)) {
         $('#dados').remove();
         }, 20000);
     const camera = document.getElementById("camera")
+    var models= './models'
     Promise.all([
-         faceapi.nets.tinyFaceDetector.loadFromUri(this.'./models'),
-         faceapi.nets.faceRecognitionNet.loadFromUri(this.'./models'),
-         faceapi.nets.faceLandmark68Net.loadFromUri(this.'./models'),
-         faceapi.nets.ssdMobilenetv1.loadFromUri(this.'./models')
+         faceapi.nets.tinyFaceDetector.loadFromUri(this.models),
+         faceapi.nets.faceRecognitionNet.loadFromUri(this.models),
+         faceapi.nets.faceLandmark68Net.loadFromUri(this.models),
+         faceapi.nets.ssdMobilenetv1.loadFromUri(this.models)
     ]).then(startVideo())
     async function startVideo() {
         navigator.getUserMedia({
