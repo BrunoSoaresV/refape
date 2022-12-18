@@ -43,7 +43,6 @@ if(isset($_POST['dados'])){
                 mkdir("./pasta/$email_empresa/$ctps");
                  }
     $pasta="pasta/$email_empresa/$ctps/";
-    //foto1
     $nomearquivo=$foto['name'];
     $extensao= strtolower(pathinfo($nomearquivo, PATHINFO_EXTENSION));
     $nomearquivo3=$foto1['name'];
@@ -57,10 +56,13 @@ if(isset($_POST['dados'])){
       $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Apenas o formato png é aceito.
       <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
       </div>";
-      }else if (($extensao=="png") && ($extensao1=="png")){
+      }
+      //foto1
+    if (($extensao=="png") && ($extensao1=="png")){
     $o=move_uploaded_file($foto["tmp_name"], "./".$pasta.'1'. "." . $extensao);
+    } 
     //foto2
-    }else if (($extensao1=="png") && ($extensao=="png")) {
+    if (($extensao1=="png") && ($extensao=="png")) {
     $g=move_uploaded_file($foto1["tmp_name"], "./".$pasta. '2' . "." . $extensao1);
     $sql = "INSERT INTO refape_web.funcionario (nome, email, ctps, email_empresa) VALUES ( '$nome', '$email', '$ctps', '$email_empresa');";
         $resultado=pg_query($conexao, $sql);
