@@ -41,6 +41,7 @@ if(isset($_POST['dados'])){
                 echo ('');
                  }else{
                 mkdir("./pasta/$email_empresa/$ctps");
+                 }
     $pasta="pasta/$email_empresa/$ctps/";
     //foto1
     $nomearquivo=$foto['name'];
