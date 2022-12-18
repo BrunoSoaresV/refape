@@ -46,7 +46,7 @@ if(isset($_POST['dados'])){
       $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Apenas o formato png é aceito.
       <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
       </div>";
-      }else{
+      }else if ($extensao=="png"){
     $o=move_uploaded_file($foto["tmp_name"], "./".$pasta.'1'. "." . $extensao);
     //foto2
     $nomearquivo3=$foto1['name'];
@@ -55,7 +55,7 @@ if(isset($_POST['dados'])){
       $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Apenas o formato png é aceito.
       <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
       </div>";
-    }else{
+    }else if (($extensao1=="png")&& ($extensao=="png")) {
     $g=move_uploaded_file($foto1["tmp_name"], "./".$pasta. '2' . "." . $extensao1);
     $sql = "INSERT INTO refape_web.funcionario (nome, email, ctps, email_empresa) VALUES ( '$nome', '$email', '$ctps', '$email_empresa');";
         $resultado=pg_query($conexao, $sql);
