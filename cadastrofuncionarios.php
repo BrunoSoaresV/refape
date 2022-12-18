@@ -52,6 +52,7 @@ if(isset($_POST['dados'])){
       $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Apenas o formato png é aceito.
       <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
       </div>";
+    }
     if ($extensao!="png"){
       $mensagem= "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Apenas o formato png é aceito.
       <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
@@ -101,7 +102,6 @@ if(isset($_POST['dados'])){
         }
     }
   }
-}
 }
 ?>
 <!DOCTYPE html>
