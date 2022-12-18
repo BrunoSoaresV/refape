@@ -40,7 +40,7 @@ if(isset($_POST['dados'])){
                if(file_exists("./pasta/$email_empresa/$ctps")){
                 echo ('');
                  }else{
-            mkdir("./pasta/$email_empresa/$ctps");
+                mkdir("./pasta/$email_empresa/$ctps");
     $pasta="pasta/$email_empresa/$ctps/";
     //foto1
     $nomearquivo=$foto['name'];
