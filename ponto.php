@@ -39,6 +39,7 @@ if($label=="Rosto desconhecido" or $label=="")die("");
   }
   if($linha = pg_fetch_assoc($resultado)){
     $hora_saida=$linha['hora_saida'];
+    $id=$linha['id'];
     $hora_entrada=$linha['hora'];
   }
     if (($resultado) and (pg_num_rows($resultado) != 0)) {
@@ -56,7 +57,7 @@ if($label=="Rosto desconhecido" or $label=="")die("");
     $hora_saida1 = new DateTime($horario_atual);
     $tempo_permanencia=$hora_entrada1->diff($hora_saida1);
     $a=$tempo_permanencia->format('%d dias:%H horas:%I minutos:%S segundos');
-    $saida = "UPDATE refape_web.ponto SET hora_saida ='$horario_atual', tempo_permanencia='$a'WHERE ctps='$ctps' and email_empresa='$email_empresa';";
+    $saida = "UPDATE refape_web.ponto SET hora_saida ='$horario_atual', tempo_permanencia='$a'WHERE id='$id;";
     $resultado_saida=pg_query($conexao, $saida);
     echo("Ponto de saída realizado com sucesso, ".$nome."!");
     break;
