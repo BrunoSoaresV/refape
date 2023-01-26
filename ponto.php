@@ -57,7 +57,7 @@ if($label=="Rosto desconhecido" or $label=="")die("");
     $hora_saida1 = new DateTime($horario_atual);
     $tempo_permanencia=$hora_entrada1->diff($hora_saida1);
     $a=$tempo_permanencia->format('%d dias:%H horas:%I minutos:%S segundos');
-    $saida = "UPDATE refape_web.ponto SET hora_saida ='$horario_atual', tempo_permanencia='$a'WHERE id=$id LIMIT 1;";
+    $saida = "UPDATE refape_web.ponto SET hora_saida ='$horario_atual', tempo_permanencia='$a'WHERE id=$id;";
     $resultado_saida=pg_query($conexao, $saida);
     echo("Ponto de saída realizado com sucesso, ".$nome."!");
     break;
