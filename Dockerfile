@@ -1,14 +1,35 @@
 # Stage 1: Use the PHP image as base
 FROM php:8.1 AS php_base
 
-# Install necessary PHP extensions and configure uploads
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        libpq-dev \
-        libcurl4 \
-    && docker-php-ext-install -j$(nproc) mysqli opcache \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql
+# Instalação de dependências do sistema
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev \
+    libcurl4 \
+    libjpeg-dev \
+    libpng-dev \
+    libfreetype6-dev \
+    libxml2-dev \
+    libzip-dev \
+    libonig-dev \
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/* 
+
+# Instalação de extensões PHP e configurações
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+        gd \
+        mysqli \
+        opcache \
+        pdo \
+        pdo_pgsql \
+        pgsql \
+        zip \
+        mbstring \
+        xml \
+        ctype \
+        json \
+        tokenizer \
+        bcmath
 
 # Configure uploads
 RUN { \
@@ -19,12 +40,12 @@ RUN { \
 # Stage 2: Install Python and necessary Python packages
 FROM python:3.10-slim AS python_base
 
-# Install system dependencies
+# Instalação de dependências do sistema
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libxml2 \
     libxml2-dev
 
-# Upgrade pip and install Python packages
+# Upgrade pip e instalação de pacotes Python
 RUN pip install --upgrade pip \
     && pip install matplotlib==3.6.2 \
     && pip install mtcnn==0.1.1 \
@@ -38,19 +59,19 @@ RUN pip install --upgrade pip \
 # Stage 3: Final image
 FROM php:8.1
 
-# Copy PHP extensions from stage 1
+# Copiar extensões PHP do estágio 1
 COPY --from=php_base /usr/local /usr/local
 
-# Copy Python installations from stage 2
+# Copiar instalações Python do estágio 2
 COPY --from=python_base /usr/local/bin/python /usr/local/bin/python
 COPY --from=python_base /usr/local/lib/python3.10 /usr/local/lib/python3.10
 
-# Set the working directory and add the PHP files
+# Configurar o diretório de trabalho e adicionar os arquivos PHP
 WORKDIR /refape
 COPY . /refape
 
-# Expose the port
+# Expor a porta
 EXPOSE 8080
 
-# Command to run the PHP server
+# Comando para executar o servidor PHP
 CMD ["php", "-S", "0.0.0.0:8080"]
