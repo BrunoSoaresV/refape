@@ -2,7 +2,8 @@
 FROM php:8.1 AS php_base
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
     libpq-dev \
     libcurl4 \
     libjpeg-dev \
@@ -12,7 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libzip-dev \
     libonig-dev \
     zlib1g-dev \
-    make \   
+    make \
+    gcc \
     && rm -rf /var/lib/apt/lists/* 
 
 # Install GD extension
@@ -44,7 +46,8 @@ RUN { \
 FROM python:3.10-slim AS python_base
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
     libxml2 \
     build-essential \
     && rm -rf /var/lib/apt/lists/* 
