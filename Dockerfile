@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     libmemcached-dev \
     libssl-dev \
-    libexpat1 \   # Add libexpat1
+    libexpat1 \   
     && rm -rf /var/lib/apt/lists/*
 
 # Install PDO PostgreSQL extension
