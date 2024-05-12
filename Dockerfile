@@ -26,6 +26,9 @@ RUN docker-php-ext-install pdo_pgsql
 # Install PostgreSQL extension
 RUN docker-php-ext-install pgsql
 
+# Enable the installed PHP extensions
+RUN docker-php-ext-enable pdo_pgsql pgsql
+
 # Configure PHP uploads
 RUN { \
     echo 'upload_max_filesize = 20000M'; \
