@@ -20,20 +20,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
 
-# Install other PHP extensions
-RUN docker-php-ext-install -j$(nproc) \
-    mysqli \
-    opcache \
-    pdo \
-    pdo_pgsql \
-    pgsql \
-    zip \
-    mbstring \
-    xml \
-    ctype \
-    json \
-    tokenizer \
-    bcmath
+# Install other PHP extensions using pecl
+RUN pecl install mysqli \
+    && pecl install opcache \
+    && pecl install pdo \
+    && pecl install pdo_pgsql \
+    && pecl install pgsql \
+    && pecl install zip \
+    && pecl install mbstring \
+    && pecl install xml \
+    && pecl install ctype \
+    && pecl install json \
+    && pecl install tokenizer \
+    && pecl install bcmath
 
 # Configure PHP uploads
 RUN { \
