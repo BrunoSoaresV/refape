@@ -14,8 +14,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/* 
 
-# Install PHP extensions and configurations
+# Configure GD extension
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+
+# Install PHP extensions
 RUN docker-php-ext-install -j$(nproc) \
     gd \
     mysqli \
@@ -30,7 +32,6 @@ RUN docker-php-ext-install -j$(nproc) \
     json \
     tokenizer \
     bcmath
-
 
 # Configure uploads
 RUN { \
