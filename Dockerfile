@@ -19,21 +19,8 @@ RUN apt-get update \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-
 # Install PDO PostgreSQL extension
 RUN docker-php-ext-install pdo_pgsql
-
-# Install PostgreSQL extension
-RUN docker-php-ext-install pgsql
-
-# Enable the installed PHP extensions
-RUN docker-php-ext-enable pdo_pgsql pgsql
-
-# Configure PHP uploads
-RUN { \
-    echo 'upload_max_filesize = 20000M'; \
-    echo 'post_max_size = 20000M'; \
-} > /usr/local/etc/php/conf.d/uploads.ini
 
 # Stage 2: Use Python image as base
 FROM python:3.10-slim AS python_base
@@ -56,13 +43,22 @@ RUN pip install --upgrade pip \
     && pip install tqdm==4.64.1
 
 # Stage 3: Final image
-FROM php:8.1
-
-# Copy PHP extensions from stage 1
-COPY --from=php_base /usr/local /usr/local
+FROM php_base
 
 # Copy Python installations from stage 2
 COPY --from=python_base /usr/local /usr/local
+
+# Install PostgreSQL extension
+RUN docker-php-ext-install pgsql
+
+# Enable the installed PHP extensions
+RUN docker-php-ext-enable pdo_pgsql pgsql
+
+# Configure PHP uploads
+RUN { \
+    echo 'upload_max_filesize = 20000M'; \
+    echo 'post_max_size = 20000M'; \
+} > /usr/local/etc/php/conf.d/uploads.ini
 
 # Set the working directory and add the PHP files
 WORKDIR /refape
