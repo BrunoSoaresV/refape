@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libzip-dev \
     libonig-dev \
     zlib1g-dev \
-    make \   # Install make command
+    make \   
     && rm -rf /var/lib/apt/lists/* 
 
 # Install GD extension
