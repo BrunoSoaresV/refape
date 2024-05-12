@@ -12,12 +12,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libzip-dev \
     libonig-dev \
     zlib1g-dev \
+    make \   # Install make command
     && rm -rf /var/lib/apt/lists/* 
 
-# Install GD extension with specific version
+# Install GD extension
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install -j$(nproc) \
+    && docker-php-ext-install -j$(nproc) gd
+
+# Install other PHP extensions
+RUN docker-php-ext-install -j$(nproc) \
     mysqli \
     opcache \
     pdo \
