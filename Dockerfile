@@ -14,12 +14,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/* 
 
-# Configure GD extension
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+# Install GD extension manually
+RUN docker-php-source extract \
+    && cd /usr/src/php/ext/gd \
+    && ./configure --with-freetype --with-jpeg \
+    && make \
+    && make install \
+    && docker-php-ext-enable gd \
+    && docker-php-source delete
 
 # Install PHP extensions
 RUN docker-php-ext-install -j$(nproc) \
-    gd \
     mysqli \
     opcache \
     pdo \
@@ -45,7 +50,6 @@ FROM python:3.10-slim AS python_base
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libxml2 \
-    libxml2-dev \
     build-essential \
     && rm -rf /var/lib/apt/lists/* 
 
@@ -67,8 +71,7 @@ FROM php:8.1
 COPY --from=php_base /usr/local /usr/local
 
 # Copy Python installations from stage 2
-COPY --from=python_base /usr/local/bin/python /usr/local/bin/python
-COPY --from=python_base /usr/local/lib/python3.10 /usr/local/lib/python3.10
+COPY --from=python_base /usr/local /usr/local
 
 # Set the working directory and add the PHP files
 WORKDIR /refape
