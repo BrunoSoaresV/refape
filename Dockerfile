@@ -1,14 +1,35 @@
 # Stage 1: Use the PHP image as base
 FROM php:8.1 AS php_base
 
-# Install necessary PHP extensions and configure uploads
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        libpq-dev \
-        libcurl4 \
-    && docker-php-ext-install -j$(nproc) mysqli opcache \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev \
+    libcurl4 \
+    libjpeg-dev \
+    libpng-dev \
+    libfreetype6-dev \
+    libxml2-dev \
+    libzip-dev \
+    libonig-dev \
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/* 
+
+# Install PHP extensions and configurations
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+        gd \
+        mysqli \
+        opcache \
+        pdo \
+        pdo_pgsql \
+        pgsql \
+        zip \
+        mbstring \
+        xml \
+        ctype \
+        json \
+        tokenizer \
+        bcmath
 
 # Configure uploads
 RUN { \
