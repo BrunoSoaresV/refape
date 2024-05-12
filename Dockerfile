@@ -1,7 +1,7 @@
 # Stage 1: Use the PHP image as base
 FROM php:8.1 AS php_base
 
-# Install system dependencies for PHP extensions
+# Install system dependencies for PHP extensions and PostgreSQL client
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     libpq-dev \
@@ -29,6 +29,7 @@ FROM python:3.10-slim AS python_base
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libxml2 \
     build-essential \
+    libexpat1 \   # Adicionando a instalação de libexpat1
     && rm -rf /var/lib/apt/lists/* 
 
 # Upgrade pip and install Python packages
