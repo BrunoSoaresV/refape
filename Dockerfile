@@ -14,17 +14,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/* 
 
-# Install GD extension manually
-RUN docker-php-source extract \
-    && cd /usr/src/php/ext/gd \
-    && ./configure --with-freetype --with-jpeg \
-    && make \
-    && make install \
-    && docker-php-ext-enable gd \
-    && docker-php-source delete
-
-# Install PHP extensions
-RUN docker-php-ext-install -j$(nproc) \
+# Install GD extension
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install -j$(nproc) \
     mysqli \
     opcache \
     pdo \
