@@ -15,21 +15,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* 
 
 # Install PHP extensions and configurations
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
-        gd \
-        mysqli \
-        opcache \
-        pdo \
-        pdo_pgsql \
-        pgsql \
-        zip \
-        mbstring \
-        xml \
-        ctype \
-        json \
-        tokenizer \
-        bcmath
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install -j$(nproc) \
+    gd \
+    mysqli \
+    opcache \
+    pdo \
+    pdo_pgsql \
+    pgsql \
+    zip \
+    mbstring \
+    xml \
+    ctype \
+    json \
+    tokenizer \
+    bcmath
+
 
 # Configure uploads
 RUN { \
