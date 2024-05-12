@@ -15,8 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     make \
     gcc \
     libmemcached-dev \
-    libssl-dev \
-    libexpat1 \   
+    libssl-dev \  
     && rm -rf /var/lib/apt/lists/*
 
 # Install PDO PostgreSQL extension
@@ -28,7 +27,8 @@ FROM python:3.10-slim AS python_base
 # Install system dependencies for Python packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libxml2 \
-    build-essential \ 
+    build-essential \
+    libexpat1 \ 
     && rm -rf /var/lib/apt/lists/* 
 
 # Upgrade pip and install Python packages
