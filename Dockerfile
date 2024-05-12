@@ -28,7 +28,7 @@ FROM python:3.10-slim AS python_base
 # Install system dependencies for Python packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libxml2 \
-    build-essential  
+    build-essential \ 
     && rm -rf /var/lib/apt/lists/* 
 
 # Upgrade pip and install Python packages
