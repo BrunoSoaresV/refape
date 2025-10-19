@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'face_api' => [
+        'base_url' => rtrim(env('FACE_API_BASE_URL', ''), '/'),
+    ],
+
 ];

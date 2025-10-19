@@ -18,10 +18,49 @@ Route::middleware('guest:empresa')->group(function () {
 Route::post('/logout', [AuthenticationController::class, 'logout'])->middleware('auth:empresa')->name('logout');
 
 Route::middleware('auth:empresa')->group(function () {
+    $resolveFaceApiUrl = static function (): string {
+        $configured = config('services.face_api.base_url');
+        if (!empty($configured)) {
+            return $configured;
+        }
+        return rtrim((string) env('FACE_API_BASE_URL', ''), '/');
+    };
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::view('/employees/create', 'placeholders.employees-create')->name('employees.create');
-    Route::view('/employees', 'placeholders.employees-index')->name('employees.index');
-    Route::view('/attendance/capture', 'placeholders.attendance-capture')->name('attendance.capture');
-    Route::view('/attendance', 'placeholders.attendance-index')->name('attendance.index');
+    Route::get('/employees/create', function () use ($resolveFaceApiUrl) {
+        $empresa = auth('empresa')->user();
+        return view('employees.create', [
+            'empresa' => $empresa,
+            'companyId' => $empresa?->cnpj,
+            'faceApiBaseUrl' => $resolveFaceApiUrl(),
+        ]);
+    })->name('employees.create');
+
+    Route::get('/employees', function () use ($resolveFaceApiUrl) {
+        $empresa = auth('empresa')->user();
+        return view('employees.index', [
+            'empresa' => $empresa,
+            'companyId' => $empresa?->cnpj,
+            'faceApiBaseUrl' => $resolveFaceApiUrl(),
+        ]);
+    })->name('employees.index');
+
+    Route::get('/attendance/capture', function () use ($resolveFaceApiUrl) {
+        $empresa = auth('empresa')->user();
+        return view('attendance.capture', [
+            'empresa' => $empresa,
+            'companyId' => $empresa?->cnpj,
+            'faceApiBaseUrl' => $resolveFaceApiUrl(),
+        ]);
+    })->name('attendance.capture');
+
+    Route::get('/attendance', function () use ($resolveFaceApiUrl) {
+        $empresa = auth('empresa')->user();
+        return view('attendance.index', [
+            'empresa' => $empresa,
+            'companyId' => $empresa?->cnpj,
+            'faceApiBaseUrl' => $resolveFaceApiUrl(),
+        ]);
+    })->name('attendance.index');
 });
