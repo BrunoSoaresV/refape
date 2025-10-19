@@ -188,5 +188,3 @@ $env:FACE_API_ALLOWED_ORIGINS="http://127.0.0.1:8100"; .venv/Scripts/python.exe 
 This project is released under the [MIT License](LICENSE).
 
 ---
-
-Would you like me to include **screenshots**, **architecture diagrams (Mermaid)**, and **badges (Docker, Python, Laravel, etc.)** to make it look like a top-tier GitHub repository? I can generate those automatically.
