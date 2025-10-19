@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: face-service
+  namespace: refape
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: face-service
+  template:
+    metadata:
+      labels:
+        app: face-service
+    spec:
+      containers:
+        - name: face-service
+          image: your-registry/refape-face-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8001
+          volumeMounts:
+            - name: face-models
+              mountPath: /app/models
+      volumes:
+        - name: face-models
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: face-service
+  namespace: refape
+spec:
+  selector:
+    app: face-service
+  ports:
+    - name: http
+      port: 8001
+      targetPort: 8001
+  type: ClusterIP

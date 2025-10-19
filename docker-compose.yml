@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  laravel:
+    build:
+      context: .
+      dockerfile: docker/laravel/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      FACE_SERVICE_URL: http://face-service:8001
+    depends_on:
+      - face-service
+    volumes:
+      - laravel_storage:/var/www/html/storage
+
+  face-service:
+    build:
+      context: .
+      dockerfile: docker/face-service/Dockerfile
+    ports:
+      - "8001:8001"
+    volumes:
+      - face_models:/app/models
+
+volumes:
+  laravel_storage:
+  face_models:

@@ -1,0 +1,13 @@
+.git
+.gitignore
+docker-compose.yml
+k8s
+.env
+node_modules
+laravel-app/node_modules
+laravel-app/vendor
+laravel-app/storage
+__pycache__/
+*.pyc
+face_service/app/__pycache__/
+face_service/models

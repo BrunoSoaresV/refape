@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel-app
+  namespace: refape
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: laravel-app
+  template:
+    metadata:
+      labels:
+        app: laravel-app
+    spec:
+      containers:
+        - name: laravel-app
+          image: your-registry/refape-laravel:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: APP_ENV
+              value: production
+            - name: APP_DEBUG
+              value: "false"
+            - name: APP_URL
+              value: http://laravel-app.refape.svc.cluster.local
+            - name: FACE_SERVICE_URL
+              value: http://face-service:8001
+          volumeMounts:
+            - name: laravel-storage
+              mountPath: /var/www/html/storage
+      volumes:
+        - name: laravel-storage
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: laravel-app
+  namespace: refape
+spec:
+  selector:
+    app: laravel-app
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+  type: ClusterIP
