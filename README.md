@@ -182,9 +182,3 @@ $env:FACE_API_ALLOWED_ORIGINS="http://127.0.0.1:8100"; .venv/Scripts/python.exe 
 **Grade:** 100% Approved
 
 ---
-
-## 📄 License
-
-This project is released under the [MIT License](LICENSE).
-
----
